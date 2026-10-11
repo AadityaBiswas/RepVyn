@@ -1,0 +1,39 @@
+{
+  "name": "readiness-workout-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "try": "tsx examples/try-state.ts",
+    "sim": "tsx src/cli/sim.ts",
+    "replay": "tsx src/cli/replay.ts",
+    "plan": "tsx src/cli/plan.ts",
+    "db:import": "tsx src/cli/db.ts import",
+    "db:replay": "tsx src/cli/db.ts replay",
+    "demo": "node demo/build.mjs",
+    "library": "tsx src/cli/library.ts",
+    "app": "node app/build.mjs",
+    "dev:backend": "tsx scripts/dev-backend.ts",
+    "check": "tsc --noEmit && vitest run"
+  },
+  "dependencies": {
+    "@supabase/auth-js": "^2.117.3",
+    "@supabase/postgrest-js": "^2.117.3",
+    "better-sqlite3": "^13.0.3",
+    "motion": "^14.1.0",
+    "preact": "^10.29.8",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.2",
+    "esbuild": "^0.28.2",
+    "fast-check": "^4.10.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  }
+}

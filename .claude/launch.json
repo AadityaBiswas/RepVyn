@@ -1,0 +1,40 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "demo",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--directory",
+        "demo/dist"
+      ],
+      "port": 8765
+    },
+    {
+      "name": "v2-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8766",
+        "--directory",
+        "C:/Users/biswa/AppData/Local/Temp/claude/C--Users-biswa-Documents-Apps-Excercise-App/020aa099-82ba-4ff0-bd6f-a6650fd66358/scratchpad/v2"
+      ],
+      "port": 8766
+    },
+    {
+      "name": "app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "app",
+        "--",
+        "--serve"
+      ],
+      "port": 5173
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RepVyn: three directions for Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="kit/device.css">
+<link rel="stylesheet" href="kit/base.css">
+<style>
+/* ---------- A. Plate: the page of an anatomy atlas. Light, the figure is the page. ---------- */
+.a .kicker { font-size: 13px; font-weight: 600; color: var(--muted); }
+.a .fig { position: absolute; top: 96px; right: -74px; height: 528px; }
+.a .why { margin-top: 16px; max-width: 16ch; font-size: 15px; line-height: 1.4; font-weight: 500; }
+.a .meta { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.a .pill { position: absolute; left: 20px; bottom: 268px; width: 188px; }
+.a .strip { position: absolute; left: 20px; right: 20px; bottom: 112px; }
+
+/* ---------- B. Thermal: a heat camera pointed at the body. Dark, mono readouts. ---------- */
+.b .read { display: flex; justify-content: space-between; font: 500 13px/1 var(--mono); letter-spacing: .04em; color: var(--muted); }
+.b .figs { margin-top: 18px; display: flex; justify-content: center; gap: 10px; }
+.b .figs img { height: 326px; }
+.b .stats { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.b .stats div { padding: 12px 0 12px 12px; border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+.b .stats div:first-child { border-left: 0; padding-left: 0; }
+.b .stats b { font: 500 11px/1 var(--mono); letter-spacing: .08em; color: var(--muted); }
+.b .stats span { font: 600 20px/1 var(--mono); letter-spacing: -.02em; }
+.b .cells { margin-top: 16px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.b .cells i { height: 34px; border-radius: 8px; background: var(--track); font: 500 13px/34px var(--mono); font-style: normal; text-align: center; color: var(--muted); }
+.b .cells .w1 { background: var(--w1); color: #fff; } .b .cells .w2 { background: var(--w2); color: #fff; } .b .cells .w3 { background: var(--w3); color: var(--on-w3); }
+.b .cells .now { background: transparent; border: 2px solid var(--ink); line-height: 30px; color: var(--ink); }
+.b .pill { margin-top: 16px; height: 56px; }
+
+/* ---------- C. Poster: a fight-night bill. The red is the whole wall. ---------- */
+.c .field { position: absolute; inset: 0 0 auto; height: 566px; background: var(--hero); color: #fff; overflow: hidden; border-radius: 0 0 40px 40px; }
+.c .field .fig { position: absolute; right: -92px; bottom: -8px; height: 610px; }
+.c .field .in { position: absolute; inset: 70px 20px 24px; display: flex; flex-direction: column; }
+.c .kicker { font-size: 13px; font-weight: 600; }
+.c .seg12 { margin-top: 10px; width: 150px; } .c .seg12 i { background: rgba(255,255,255,.3); height: 4px; } .c .seg12 i.d, .c .seg12 i.n { background: #fff; }
+.c h1 { margin-top: 24px; font-size: 84px; line-height: .88; font-weight: 900; letter-spacing: -.055em; }
+.c .why { margin-top: 18px; max-width: 14ch; font-size: 15px; line-height: 1.4; font-weight: 500; }
+.c .foot { margin-top: auto; display: flex; align-items: center; gap: 14px; font-size: 13px; line-height: 1.5; font-weight: 600; }
+.c .round { background: #fff; color: var(--hero); }
+.c .strip { position: absolute; left: 20px; right: 20px; top: 586px; }
+.c .section { position: absolute; left: 20px; top: 678px; }
+.c .rows { position: absolute; left: 20px; right: 20px; top: 714px; }
+</style>
+</head>
+<body>
+
+<!-- A. "RepVyn is a plate from an anatomy atlas." Printed matter / light / Geist 800 / illustration -->
+<section class="screen a" data-name="a-plate" data-time="7:42">
+  <div class="page">
+    <p class="kicker">Week 3 of 12 · Balanced</p>
+    <div data-part="seg12" style="margin-top: 10px; width: 150px;"></div>
+    <img class="fig" src="img/today-front-light.png" alt="">
+    <h1 class="display" style="margin-top: 30px;">Lower<br>body</h1>
+    <p class="why">Your legs are fully recovered. Chest and shoulders rest today.</p>
+    <p class="meta">40 min · 5 exercises</p>
+    <div class="pill">View workout<span data-icon="arrow" data-w="2.4" style="display:flex"></span></div>
+    <div data-part="strip"></div>
+  </div>
+  <div class="nav glass" data-float data-part="nav" data-on="today"></div>
+</section>
+
+<!-- B. "RepVyn is a thermal camera." Object / dark / Geist Mono / colour and material -->
+<section class="screen b" data-name="b-thermal" data-theme="dark" data-time="7:42">
+  <div class="page">
+    <div class="read"><span>WK 03/12</span><span>SAT 10 OCT</span></div>
+    <div class="figs"><img src="img/thermal-front.png" alt=""><img src="img/thermal-back.png" alt=""></div>
+    <h1 class="title" style="margin-top: 14px;">Lower body</h1>
+    <div class="stats"><div><b>TARGET</b><span>Legs</span></div><div><b>TIME</b><span>40:00</span></div><div><b>SETS</b><span>15</span></div></div>
+    <div class="cells"><i class="w3">05</i><i>06</i><i class="w1">07</i><i class="w2">08</i><i>09</i><i class="now">10</i><i>11</i></div>
+    <div class="pill">View workout<span data-icon="arrow" data-w="2.4" style="display:flex"></span></div>
+  </div>
+  <div class="nav glass" data-float data-part="nav" data-on="today"></div>
+</section>
+
+<!-- C. "RepVyn is a fight-night poster." Media / colour field / Geist 900 at poster scale / the red itself -->
+<section class="screen c" data-name="c-poster" data-chrome="light" data-home="dark" data-time="7:42">
+  <div class="field">
+    <img class="fig" src="img/hero-legs-light.png" alt="">
+    <div class="in">
+      <p class="kicker">Week 3 of 12 · Balanced</p>
+      <div data-part="seg12"></div>
+      <h1>Lower<br>body</h1>
+      <p class="why">Your legs are fully recovered. Chest and shoulders rest today.</p>
+      <div class="foot"><span class="round" data-icon="arrow" data-w="2.4"></span><span>40 min<br>5 exercises</span></div>
+    </div>
+  </div>
+  <div data-part="strip"></div>
+  <h2 class="section">Today's plan</h2>
+  <div data-part="rows" data-n="2" data-scrolls></div>
+  <div class="nav glass" data-float data-part="nav" data-on="today"></div>
+</section>
+
+<script src="kit/parts.js"></script>
+<script src="kit/device.js"></script>
+</body>
+</html>

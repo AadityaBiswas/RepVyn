@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RepVyn: Home Screen v3 (on top of v2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="kit/device.css">
+<link rel="stylesheet" href="kit/base.css">
+<style>
+.screen { container-type: size; }
+
+/* ---------- Today ---------- */
+.today .head { display: flex; align-items: baseline; justify-content: space-between; }
+.today .prog { margin-right: -5px; min-height: 32px; display: flex; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; color: var(--muted); }
+.today .seg12 { margin-top: 14px; }
+.today .strip { margin-top: 18px; }
+.hero { position: relative; flex: 1; min-height: 0; margin-top: 18px; border-radius: 32px; background: var(--hero); color: #FFFFFF; overflow: hidden; box-shadow: 0 28px 44px -28px rgba(196,34,58,.75); }
+/* A lit top edge, drawn over the figure so the card reads as one object. */
+.hero::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.22); pointer-events: none; }
+.screen[data-theme="dark"] .hero, .mini-screen[data-theme="dark"] .hero { box-shadow: none; }
+/* The figure is cropped to what today trains: legs day shows the legs. */
+.hero .fig { position: absolute; right: 12px; bottom: -22px; height: 403px; }
+.hero .display { margin-left: -3px; }
+.hero .in { position: absolute; inset: 24px; display: flex; flex-direction: column; }
+.hero .why { margin-top: 14px; max-width: 15ch; font-size: 15px; line-height: 1.4; font-weight: 500; color: rgba(255,255,255,.92); }
+.hero .foot { margin-top: auto; display: flex; align-items: center; gap: 14px; }
+.hero .foot p { display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 1.2; font-weight: 600; color: rgba(255,255,255,.92); }
+.hero .foot strong { font-size: 17px; font-weight: 700; letter-spacing: -.015em; color: #FFFFFF; }
+.hero .round { background: #FFFFFF; color: var(--hero); box-shadow: 0 12px 18px -10px rgba(0,0,0,.5); }
+.today .section { margin-top: 26px; }
+.today .plan { margin-top: 12px; height: 248px; overflow: hidden; }
+@container (max-height: 760px) {
+  .screen .today .section, .screen .today .plan { display: none; }
+  .screen .today .hero { margin-bottom: 104px; }
+  .screen .today .hero .fig { height: 350px; right: 6px; }
+  .screen .today .cap { height: 56px; }
+}
+
+/* ---------- Workout page ---------- */
+.back { width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center; }
+.work .title { margin-top: 14px; }
+.work .sub { margin-top: 8px; font-size: 15px; color: var(--muted); }
+.figs { display: flex; justify-content: center; gap: 28px; }
+.work .figs { margin-top: 18px; }
+.work .figs { gap: 44px; }
+.work .figs img { height: min(280px, 32cqh); }
+.chips { margin-top: 20px; display: flex; gap: 8px; }
+/* The three choices share the row, so its right edge is never ragged. */
+.chips button { flex: 1 1 auto; height: 48px; padding: 0 12px 0 16px; border-radius: 999px; background: var(--surface); white-space: nowrap; display: flex; align-items: center; justify-content: space-between; gap: 4px; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.chips i { color: var(--muted); }
+.row .more { margin: 0 -8px 0 auto; width: 44px; height: 44px; flex: none; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.work .section { margin-top: 28px; }
+.work .plan { margin-top: 12px; flex: 1; min-height: 0; overflow: hidden; }
+.cta { position: absolute; z-index: 4; left: 20px; right: 20px; bottom: 30px; }
+.fade { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: 112px; background: linear-gradient(transparent, var(--bg) 62%); }
+
+/* ---------- Body ---------- */
+.body .figs { margin-top: 20px; gap: 8px; }
+.body .figs img { height: min(292px, 38cqh); }
+/* The next five days as one track; the day shown is the raised knob. */
+.days { margin-top: 14px; display: flex; justify-content: center; gap: 8px; }
+.days { margin-left: auto; margin-right: auto; padding: 4px; gap: 2px; border-radius: 999px; background: rgba(28,28,30,.07); }
+.days button { width: 44px; height: 36px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--muted); }
+.days button.on { background: var(--surface); color: var(--ink); box-shadow: 0 6px 10px -6px rgba(0,0,0,.4); }
+.body .section { margin-top: 24px; }
+.body .rows { margin-top: 12px; }
+.list { margin-top: 12px; background: var(--surface); border-radius: 24px; padding: 0 20px; }
+.list div { min-height: 60px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--soft); font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+.list div:last-child { border-bottom: 0; }
+.list i { width: 16px; height: 16px; flex: none; border-radius: 5px; }
+.list small { margin-left: auto; font-size: 15px; font-weight: 400; letter-spacing: 0; color: var(--muted); }
+/* Where the finger is, in the two dragged frames. */
+.touch { position: absolute; width: 60px; height: 60px; border-radius: 999px; background: rgba(255,255,255,.62); border: 1.5px solid #FFFFFF; box-shadow: 0 10px 20px -6px rgba(0,0,0,.4); }
+
+/* ---------- Signature storyboard ---------- */
+.story { background: #E6E6EB; padding: 28px 16px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; align-content: start; justify-items: center; }
+.story h2 { grid-column: 1 / -1; justify-self: start; padding-left: 8px; }
+.story figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.story figcaption { font-size: 13px; font-weight: 600; text-align: center; }
+.story .note { align-self: center; padding: 0 6px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.4; color: var(--muted); }
+.story .note b { color: var(--ink); font-weight: 700; }
+
+</style>
+</head>
+<body>
+
+<!-- 1. Today, Saturday of week 3 -->
+<section class="screen" data-name="today" data-time="7:42">
+  <div class="page today">
+    <div class="head"><h1 class="title">Week 3 <span class="faint">of 12</span></h1><button type="button" class="prog press">Balanced<span data-icon="chev" data-s="16" style="display:flex"></span></button></div>
+    <div data-part="seg12"></div>
+    <div data-part="strip"></div>
+    <div class="hero">
+      <img class="fig" src="img/hero-legs-light.png" alt="">
+      <div class="in">
+        <h2 class="display">Lower<br>body</h2>
+        <p class="why">Your legs are fully recovered. Chest and shoulders rest today.</p>
+        <div class="foot"><button type="button" class="round press" aria-label="View workout" data-icon="arrow" data-w="2.4"></button><p><strong>40 min</strong>5 exercises</p></div>
+      </div>
+    </div>
+    <h2 class="section">Today's plan</h2>
+    <div class="plan" data-scrolls><div data-part="rows" data-n="3"></div></div>
+  </div>
+  <div class="edge"></div>
+  <div class="nav frost" data-float data-part="nav" data-on="today"></div>
+</section>
+
+<!-- 2. Workout page, one level deeper -->
+<section class="screen" data-name="workout" data-time="7:42">
+  <div class="page work">
+    <button type="button" class="back frost press" aria-label="Back" data-icon="back" data-w="2.4"></button>
+    <h1 class="title">Lower body</h1>
+    <p class="sub">Quads, glutes, hamstrings, calves and abs</p>
+    <div class="figs"><img src="img/plate-front-light.png" alt=""><img src="img/plate-back-light.png" alt=""></div>
+    <div class="chips"><button type="button" class="press">40 min<i data-icon="down" data-s="18" style="display:flex"></i></button><button type="button" class="press">Normal<i data-icon="down" data-s="18" style="display:flex"></i></button><button type="button" class="press">Bodyweight<i data-icon="down" data-s="18" style="display:flex"></i></button></div>
+    <h2 class="section">5 exercises</h2>
+    <div class="plan" data-scrolls><div data-part="rows" data-n="5" data-more="1"></div></div>
+  </div>
+  <div class="fade"></div>
+  <button type="button" class="pill cta press" data-float><span data-icon="play" style="display:flex"></span>Start workout</button>
+</section>
+
+<!-- 3. In a set: see set.html -->
+
+<!-- 4. Body, now -->
+<section class="screen" data-name="body" data-time="7:42">
+  <div class="page body">
+    <h1 class="title">Body <span class="faint">now</span></h1>
+    <div class="figs"><img src="img/body-now-front-light.png" alt=""><img src="img/body-now-back-light.png" alt=""></div>
+    <div class="days" role="group" aria-label="Day shown"><button type="button" class="press on" aria-label="Today">S</button><button type="button" class="press" aria-label="Sunday">S</button><button type="button" class="press" aria-label="Monday">M</button><button type="button" class="press" aria-label="Tuesday">T</button><button type="button" class="press" aria-label="Wednesday">W</button></div>
+    <h2 class="section">Recovering</h2>
+    <div class="rows"><div class="row"><img src="img/rec-chest.png" alt=""><div><strong>Chest</strong></div><small class="when">Ready Monday</small></div><div class="row"><img src="img/rec-front_delt.png" alt=""><div><strong>Shoulders</strong></div><small class="when">Ready tomorrow</small></div><div class="row"><img src="img/rec-triceps.png" alt=""><div><strong>Triceps</strong></div><small class="when">Ready tomorrow</small></div></div>
+  </div>
+  <div class="nav frost" data-float data-part="nav" data-on="body"></div>
+</section>
+
+<!-- 5. The signature: drag across the body to run recovery forward -->
+<section class="screen story" data-name="signature" data-chrome="none" data-dense>
+  <h2 class="section">Drag the body forward</h2>
+  <figure>
+    <div class="mini" style="--mini:.42"><div class="mini-screen" data-time="7:42">
+      <div class="page body">
+        <h1 class="title">Body <span class="faint">now</span></h1>
+        <div class="figs"><img src="img/body-now-front-light.png" alt=""><img src="img/body-now-back-light.png" alt=""></div>
+        <div class="days" role="group" aria-label="Day shown"><button type="button" class="press on" aria-label="Today">S</button><button type="button" class="press" aria-label="Sunday">S</button><button type="button" class="press" aria-label="Monday">M</button><button type="button" class="press" aria-label="Tuesday">T</button><button type="button" class="press" aria-label="Wednesday">W</button></div>
+        <h2 class="section">Recovering</h2>
+        <div class="rows"><div class="row"><img src="img/rec-chest.png" alt=""><div><strong>Chest</strong></div><small class="when">Ready Monday</small></div><div class="row"><img src="img/rec-front_delt.png" alt=""><div><strong>Shoulders</strong></div><small class="when">Ready tomorrow</small></div><div class="row"><img src="img/rec-triceps.png" alt=""><div><strong>Triceps</strong></div><small class="when">Ready tomorrow</small></div></div>
+      </div>
+      <div class="nav frost" data-float data-part="nav" data-on="body"></div>
+    </div></div>
+    <figcaption>1 · Touch</figcaption>
+  </figure>
+  <figure>
+    <div class="mini" style="--mini:.42"><div class="mini-screen" data-time="7:42">
+      <div class="page body">
+        <h1 class="title">Body <span class="faint">tomorrow</span></h1>
+        <div class="figs"><img src="img/body-tomorrow-front-light.png" alt=""><img src="img/body-tomorrow-back-light.png" alt=""></div>
+        <div class="days" role="group" aria-label="Day shown"><button type="button" class="press" aria-label="Today">S</button><button type="button" class="press on" aria-label="Sunday">S</button><button type="button" class="press" aria-label="Monday">M</button><button type="button" class="press" aria-label="Tuesday">T</button><button type="button" class="press" aria-label="Wednesday">W</button></div>
+        <h2 class="section">Recovering</h2>
+        <div class="rows"><div class="row"><img src="img/rec-chest-tomorrow.png" alt=""><div><strong>Chest</strong></div><small class="when">Ready Monday</small></div></div>
+      </div>
+      <div class="nav frost" data-float data-part="nav" data-on="body"></div>
+    </div></div>
+    <figcaption>2 · Drag one day</figcaption>
+  </figure>
+  <figure>
+    <div class="mini" style="--mini:.42"><div class="mini-screen" data-time="7:42">
+      <div class="page body">
+        <h1 class="title">Body <span class="faint">Monday</span></h1>
+        <div class="figs" style="margin-top: 70px;"><img src="img/body-monday-front-light.png" alt=""><img src="img/body-monday-back-light.png" alt=""></div>
+        <div class="days" role="group" aria-label="Day shown"><button type="button" class="press" aria-label="Today">S</button><button type="button" class="press" aria-label="Sunday">S</button><button type="button" class="press on" aria-label="Monday">M</button><button type="button" class="press" aria-label="Tuesday">T</button><button type="button" class="press" aria-label="Wednesday">W</button></div>
+        <h2 class="section">Recovering</h2>
+        <div class="rows"><div class="row" style="min-height:60px"><strong>Everything is ready</strong></div></div>
+      </div>
+      <div class="nav frost" data-float data-part="nav" data-on="body"></div>
+    </div></div>
+    <figcaption>3 · Two days</figcaption>
+  </figure>
+  <div class="note">
+    <p><b>Trigger.</b> A horizontal drag anywhere on the figures.</p>
+    <p><b>Feel.</b> One selection tick per day. The reds cool as the finger moves.</p>
+    <p><b>Release.</b> Springs back to now in 350 ms.</p>
+    <p><b>Reduced motion.</b> Days cross-fade.</p>
+  </div>
+</section>
+
+<!-- 6. Today in dark -->
+<section class="screen" data-name="today-dark" data-theme="dark" data-time="21:16">
+  <div class="page today">
+    <div class="head"><h1 class="title">Week 3 <span class="faint">of 12</span></h1><button type="button" class="prog press">Balanced<span data-icon="chev" data-s="16" style="display:flex"></span></button></div>
+    <div data-part="seg12"></div>
+    <div data-part="strip"></div>
+    <div class="hero">
+      <img class="fig" src="img/hero-legs-dark.png" alt="">
+      <div class="in">
+        <h2 class="display">Lower<br>body</h2>
+        <p class="why">Your legs are fully recovered. Chest and shoulders rest today.</p>
+        <div class="foot"><button type="button" class="round press" aria-label="View workout" data-icon="arrow" data-w="2.4"></button><p><strong>40 min</strong>5 exercises</p></div>
+      </div>
+    </div>
+    <h2 class="section">Today's plan</h2>
+    <div class="plan" data-scrolls><div data-part="rows" data-n="3" data-theme="dark"></div></div>
+  </div>
+  <div class="edge"></div>
+  <div class="nav frost" data-float data-part="nav" data-on="today"></div>
+</section>
+
+<!-- 7. App icon: see icon.html -->
+
+<script src="kit/parts.js"></script>
+<script src="kit/device.js"></script>
+</body>
+</html>

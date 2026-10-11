@@ -1,0 +1,86 @@
+/* RepVyn tokens and shared parts for the app-designer mockups.
+   Roles and values come from DESIGN.md (Home Screen v2); changes are listed in DIRECTION.md. */
+:root {
+  --bg: #F2F2F7; --surface: #FFFFFF; --ink: #1C1C1E; --muted: #636366; --faint: #85858B;
+  --line: #D1D1D6; --track: #E1E1E6; --soft: rgba(0,0,0,.07);
+  --accent: #D91E36; --hero: #C4223A;
+  /* The work scale: further from the ground means more work. */
+  --w1: #EE8794; --w2: #D91E36; --w3: #7A0E1E; --on-w1: #5E0A17; --on-w2: #FFFFFF; --on-w3: #FFFFFF;
+  --nav-on: #1C1C1E; --nav-on-ink: #FFFFFF; --glass: rgba(255,255,255,.66); --thumb: #F2F2F7;
+  --up: #1A6B3B;
+  --geist: "Geist", system-ui, sans-serif; --mono: "Geist Mono", ui-monospace, Consolas, monospace;
+}
+.screen[data-theme="dark"], .mini-screen[data-theme="dark"] {
+  --bg: #000000; --surface: #1C1C1E; --ink: #F5F5F7; --muted: #A1A1A6; --faint: #8E8E93;
+  --line: #3A3A3C; --track: #2C2C2E; --soft: rgba(255,255,255,.1);
+  --accent: #E22A40; --hero: #B8233A;
+  --w1: #6B1524; --w2: #E22A40; --w3: #FF6B7D; --on-w1: #FFFFFF; --on-w2: #FFFFFF; --on-w3: #3A0810;
+  --nav-on: #F5F5F7; --nav-on-ink: #000000; --glass-dark: rgba(44,44,46,.66); --thumb: #2C2C2E;
+  --up: #3DD68C;
+  background: var(--bg); color: var(--ink);
+}
+.screen, .mini > .mini-screen { font-family: var(--geist); background: var(--bg); color: var(--ink); font-variant-numeric: tabular-nums; }
+.ac-status { font-family: var(--geist) !important; }
+.screen p, .screen h1, .screen h2, .screen h3 { margin: 0; }
+:where(.screen) button { margin: 0; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+.screen ::selection { background: rgba(217,30,54,.22); }
+.screen :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.press { transition: transform 100ms ease-out; }
+.press:active { transform: scale(.97); }
+@media (prefers-reduced-motion: reduce) { .press { transition: none; } }
+
+/* Everything that floats is one material: bright frosted glass, lit from its top edge. */
+.frost { background: rgba(255,255,255,.8); -webkit-backdrop-filter: blur(28px) saturate(1.8); backdrop-filter: blur(28px) saturate(1.8); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 16px 32px -18px rgba(0,0,0,.4); }
+.screen[data-theme="dark"] .frost, .mini-screen[data-theme="dark"] .frost { background: rgba(44,44,46,.72); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 16px 32px -14px rgba(0,0,0,.9); }
+@media (prefers-reduced-transparency: reduce) { .frost { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+
+/* Type scale: 96 (rep count) / 64 / 34 / 20 / 17 / 15 / 13 / 11 */
+.display { font-size: 64px; line-height: .94; font-weight: 800; letter-spacing: -.045em; }
+.title { font-size: 34px; line-height: 1; font-weight: 800; letter-spacing: -.035em; }
+.section { font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.faint { color: var(--faint); }
+.muted { color: var(--muted); }
+
+.page { position: absolute; inset: var(--safe-top) 0 0; padding: 8px 20px 0; display: flex; flex-direction: column; }
+
+/* 12 weeks */
+.seg12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.seg12 i { height: 6px; border-radius: 99px; background: var(--track); }
+.seg12 i.d { background: var(--ink); }
+.seg12 i.n { background: var(--accent); }
+
+/* Week strip */
+.strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.cap { height: 64px; border-radius: 999px; border: 1.5px solid transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.cap b { font-size: 11px; line-height: 1; font-weight: 600; }
+.cap span { height: 18px; display: flex; align-items: center; font-size: 17px; line-height: 1; font-weight: 700; letter-spacing: -.02em; }
+.cap.w1 { background: var(--w1); color: var(--on-w1); }
+.cap.w2 { background: var(--w2); color: var(--on-w2); }
+.cap.w3 { background: var(--w3); color: var(--on-w3); }
+.cap.rest { border-color: var(--line); color: var(--muted); }
+/* Today is the one raised day. */
+.cap.today { background: var(--surface); border: 2px solid var(--accent); box-shadow: 0 10px 16px -10px rgba(217,30,54,.6); }
+.cap.up { background: var(--surface); }
+.cap.up b { color: var(--muted); }
+
+/* Exercise rows: the thumbnail is the muscle the exercise trains, cropped from the body figure. */
+.rows { background: var(--surface); border-radius: 24px; padding: 0 16px; }
+.row { min-height: 80px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--soft); }
+.row:last-child { border-bottom: 0; }
+.row img { width: 56px; height: 56px; flex: none; border-radius: 16px; background: var(--thumb); }
+.row div { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.row strong { font-size: 17px; line-height: 1.2; font-weight: 700; letter-spacing: -.015em; }
+.row small { font-size: 15px; line-height: 1.3; color: var(--muted); }
+.row .when { margin-left: auto; }
+/* Content fades out at the bottom edge, under the floating bar. */
+.edge { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; height: 104px; background: linear-gradient(transparent, var(--bg) 40%); }
+
+/* Floating nav: the approved pill, active tab opened into a label. */
+.nav { position: absolute; z-index: 5; left: 50%; bottom: 24px; transform: translateX(-50%); width: max-content; padding: 6px; border-radius: 999px; display: flex; gap: 2px; }
+.nav button { height: 52px; min-width: 62px; border-radius: 999px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.nav button.on { padding: 0 22px; background: var(--nav-on); color: var(--nav-on-ink); box-shadow: 0 8px 14px -8px rgba(0,0,0,.5); }
+.nav svg, .ico { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Buttons */
+.pill { height: 64px; border-radius: 999px; background: var(--accent); color: #FFFFFF; box-shadow: 0 14px 24px -14px rgba(217,30,54,.8); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+.round { width: 56px; height: 56px; flex: none; border-radius: 999px; display: flex; align-items: center; justify-content: center; }

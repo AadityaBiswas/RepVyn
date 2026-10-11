@@ -1,0 +1,1505 @@
+[
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000001",
+  "userId": "demo",
+  "ts": 1767634200000,
+  "seq": 0,
+  "type": "profile_set",
+  "payload": {
+   "goal": "muscle",
+   "experience": "intermediate",
+   "equipment": [
+    "pullup_bar",
+    "resistance_band"
+   ],
+   "excludeExercises": [],
+   "excludeRegions": [],
+   "daysPerWeek": 3,
+   "sessionMinutes": 40
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000002",
+  "userId": "demo",
+  "ts": 1767636000000,
+  "seq": 1,
+  "type": "session_started",
+  "payload": {
+   "sessionId": "w1-mon"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000003",
+  "userId": "demo",
+  "ts": 1767636120000,
+  "seq": 2,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 8,
+   "rir": 5,
+   "isWarmup": true,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000004",
+  "userId": "demo",
+  "ts": 1767636240000,
+  "seq": 3,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 14,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000005",
+  "userId": "demo",
+  "ts": 1767636360000,
+  "seq": 4,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 12,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000006",
+  "userId": "demo",
+  "ts": 1767636480000,
+  "seq": 5,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 10,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000007",
+  "userId": "demo",
+  "ts": 1767636600000,
+  "seq": 6,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "squat_bodyweight",
+   "reps": 22,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000008",
+  "userId": "demo",
+  "ts": 1767636720000,
+  "seq": 7,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "squat_bodyweight",
+   "reps": 20,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000009",
+  "userId": "demo",
+  "ts": 1767636840000,
+  "seq": 8,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "squat_bodyweight",
+   "reps": 18,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000000a",
+  "userId": "demo",
+  "ts": 1767636960000,
+  "seq": 9,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "pull_up_band_assisted",
+   "reps": 8,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000000b",
+  "userId": "demo",
+  "ts": 1767637080000,
+  "seq": 10,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "pull_up_band_assisted",
+   "reps": 7,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000000c",
+  "userId": "demo",
+  "ts": 1767637200000,
+  "seq": 11,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "pull_up_band_assisted",
+   "reps": 6,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000000d",
+  "userId": "demo",
+  "ts": 1767637320000,
+  "seq": 12,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "glute_bridge",
+   "reps": 25,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000000e",
+  "userId": "demo",
+  "ts": 1767637440000,
+  "seq": 13,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "glute_bridge",
+   "reps": 22,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000000f",
+  "userId": "demo",
+  "ts": 1767637560000,
+  "seq": 14,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "plank",
+   "holdSeconds": 45,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000010",
+  "userId": "demo",
+  "ts": 1767637680000,
+  "seq": 15,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-mon",
+   "exerciseId": "plank",
+   "holdSeconds": 40,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000011",
+  "userId": "demo",
+  "ts": 1767637860000,
+  "seq": 16,
+  "type": "session_ended",
+  "payload": {
+   "sessionId": "w1-mon"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000012",
+  "userId": "demo",
+  "ts": 1767686400000,
+  "seq": 17,
+  "type": "checkin",
+  "payload": {
+   "feel": "normal",
+   "soreRegions": [
+    "chest",
+    "quads"
+   ]
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000013",
+  "userId": "demo",
+  "ts": 1767808800000,
+  "seq": 18,
+  "type": "session_started",
+  "payload": {
+   "sessionId": "w1-wed"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000014",
+  "userId": "demo",
+  "ts": 1767808920000,
+  "seq": 19,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "pike_push_up",
+   "reps": 10,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000015",
+  "userId": "demo",
+  "ts": 1767809040000,
+  "seq": 20,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "pike_push_up",
+   "reps": 9,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000016",
+  "userId": "demo",
+  "ts": 1767809160000,
+  "seq": 21,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "pike_push_up",
+   "reps": 8,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000017",
+  "userId": "demo",
+  "ts": 1767809280000,
+  "seq": 22,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "band_row",
+   "reps": 18,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000018",
+  "userId": "demo",
+  "ts": 1767809400000,
+  "seq": 23,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "band_row",
+   "reps": 16,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000019",
+  "userId": "demo",
+  "ts": 1767809520000,
+  "seq": 24,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "band_row",
+   "reps": 15,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000001a",
+  "userId": "demo",
+  "ts": 1767809640000,
+  "seq": 25,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "reverse_lunge",
+   "reps": 12,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000001b",
+  "userId": "demo",
+  "ts": 1767809760000,
+  "seq": 26,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "reverse_lunge",
+   "reps": 11,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000001c",
+  "userId": "demo",
+  "ts": 1767809880000,
+  "seq": 27,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "reverse_lunge",
+   "reps": 10,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000001d",
+  "userId": "demo",
+  "ts": 1767810000000,
+  "seq": 28,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "band_curl",
+   "reps": 15,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000001e",
+  "userId": "demo",
+  "ts": 1767810120000,
+  "seq": 29,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "band_curl",
+   "reps": 13,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000001f",
+  "userId": "demo",
+  "ts": 1767810240000,
+  "seq": 30,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "calf_raise_single",
+   "reps": 16,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000020",
+  "userId": "demo",
+  "ts": 1767810360000,
+  "seq": 31,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-wed",
+   "exerciseId": "calf_raise_single",
+   "reps": 14,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000021",
+  "userId": "demo",
+  "ts": 1767810540000,
+  "seq": 32,
+  "type": "session_ended",
+  "payload": {
+   "sessionId": "w1-wed"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000022",
+  "userId": "demo",
+  "ts": 1767981600000,
+  "seq": 33,
+  "type": "session_started",
+  "payload": {
+   "sessionId": "w1-fri"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000023",
+  "userId": "demo",
+  "ts": 1767981720000,
+  "seq": 34,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 8,
+   "rir": 5,
+   "isWarmup": true,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000024",
+  "userId": "demo",
+  "ts": 1767981840000,
+  "seq": 35,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 15,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000025",
+  "userId": "demo",
+  "ts": 1767981960000,
+  "seq": 36,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 13,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000026",
+  "userId": "demo",
+  "ts": 1767982080000,
+  "seq": 37,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 11,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000027",
+  "userId": "demo",
+  "ts": 1767982200000,
+  "seq": 38,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "squat_bodyweight",
+   "reps": 24,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000028",
+  "userId": "demo",
+  "ts": 1767982320000,
+  "seq": 39,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "squat_bodyweight",
+   "reps": 21,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000029",
+  "userId": "demo",
+  "ts": 1767982440000,
+  "seq": 40,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "squat_bodyweight",
+   "reps": 19,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000002a",
+  "userId": "demo",
+  "ts": 1767982560000,
+  "seq": 41,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "chin_up",
+   "reps": 6,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000002b",
+  "userId": "demo",
+  "ts": 1767982680000,
+  "seq": 42,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "chin_up",
+   "reps": 5,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000002c",
+  "userId": "demo",
+  "ts": 1767982800000,
+  "seq": 43,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "chin_up",
+   "reps": 4,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000002d",
+  "userId": "demo",
+  "ts": 1767982920000,
+  "seq": 44,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "glute_bridge",
+   "reps": 27,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000002e",
+  "userId": "demo",
+  "ts": 1767983040000,
+  "seq": 45,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "glute_bridge",
+   "reps": 24,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000002f",
+  "userId": "demo",
+  "ts": 1767983160000,
+  "seq": 46,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "dead_bug",
+   "reps": 16,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000030",
+  "userId": "demo",
+  "ts": 1767983280000,
+  "seq": 47,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w1-fri",
+   "exerciseId": "dead_bug",
+   "reps": 14,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000031",
+  "userId": "demo",
+  "ts": 1767983460000,
+  "seq": 48,
+  "type": "session_ended",
+  "payload": {
+   "sessionId": "w1-fri"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000032",
+  "userId": "demo",
+  "ts": 1768125600000,
+  "seq": 49,
+  "type": "external_activity",
+  "payload": {
+   "presetId": "football",
+   "minutes": 90,
+   "intensity": "hard"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000033",
+  "userId": "demo",
+  "ts": 1768204800000,
+  "seq": 50,
+  "type": "checkin",
+  "payload": {
+   "feel": "beat_up",
+   "soreRegions": [
+    "hamstrings",
+    "calves"
+   ]
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000034",
+  "userId": "demo",
+  "ts": 1768240800000,
+  "seq": 51,
+  "type": "session_started",
+  "payload": {
+   "sessionId": "w2-mon"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000035",
+  "userId": "demo",
+  "ts": 1768240920000,
+  "seq": 52,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 8,
+   "rir": 5,
+   "isWarmup": true,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000036",
+  "userId": "demo",
+  "ts": 1768241040000,
+  "seq": 53,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 15,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000037",
+  "userId": "demo",
+  "ts": 1768241160000,
+  "seq": 54,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 13,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000038",
+  "userId": "demo",
+  "ts": 1768241280000,
+  "seq": 55,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "push_up_standard",
+   "reps": 12,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000039",
+  "userId": "demo",
+  "ts": 1768241400000,
+  "seq": 56,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "pull_up_band_assisted",
+   "reps": 9,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000003a",
+  "userId": "demo",
+  "ts": 1768241520000,
+  "seq": 57,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "pull_up_band_assisted",
+   "reps": 8,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000003b",
+  "userId": "demo",
+  "ts": 1768241640000,
+  "seq": 58,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "pull_up_band_assisted",
+   "reps": 7,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000003c",
+  "userId": "demo",
+  "ts": 1768241760000,
+  "seq": 59,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "pike_push_up",
+   "reps": 11,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000003d",
+  "userId": "demo",
+  "ts": 1768241880000,
+  "seq": 60,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "pike_push_up",
+   "reps": 9,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000003e",
+  "userId": "demo",
+  "ts": 1768242000000,
+  "seq": 61,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "band_row",
+   "reps": 19,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000003f",
+  "userId": "demo",
+  "ts": 1768242120000,
+  "seq": 62,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "band_row",
+   "reps": 17,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000040",
+  "userId": "demo",
+  "ts": 1768242240000,
+  "seq": 63,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "plank",
+   "holdSeconds": 50,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000041",
+  "userId": "demo",
+  "ts": 1768242360000,
+  "seq": 64,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-mon",
+   "exerciseId": "plank",
+   "holdSeconds": 45,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000042",
+  "userId": "demo",
+  "ts": 1768242540000,
+  "seq": 65,
+  "type": "session_ended",
+  "payload": {
+   "sessionId": "w2-mon"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000043",
+  "userId": "demo",
+  "ts": 1768413600000,
+  "seq": 66,
+  "type": "session_started",
+  "payload": {
+   "sessionId": "w2-wed"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000044",
+  "userId": "demo",
+  "ts": 1768413720000,
+  "seq": 67,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "squat_bodyweight",
+   "reps": 25,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000045",
+  "userId": "demo",
+  "ts": 1768413840000,
+  "seq": 68,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "squat_bodyweight",
+   "reps": 22,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000046",
+  "userId": "demo",
+  "ts": 1768413960000,
+  "seq": 69,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "squat_bodyweight",
+   "reps": 20,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000047",
+  "userId": "demo",
+  "ts": 1768414080000,
+  "seq": 70,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "reverse_lunge",
+   "reps": 13,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000048",
+  "userId": "demo",
+  "ts": 1768414200000,
+  "seq": 71,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "reverse_lunge",
+   "reps": 12,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000049",
+  "userId": "demo",
+  "ts": 1768414320000,
+  "seq": 72,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "reverse_lunge",
+   "reps": 11,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000004a",
+  "userId": "demo",
+  "ts": 1768414440000,
+  "seq": 73,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "glute_bridge",
+   "reps": 28,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000004b",
+  "userId": "demo",
+  "ts": 1768414560000,
+  "seq": 74,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "glute_bridge",
+   "reps": 25,
+   "rir": 3,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000004c",
+  "userId": "demo",
+  "ts": 1768414680000,
+  "seq": 75,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "calf_raise_single",
+   "reps": 17,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000004d",
+  "userId": "demo",
+  "ts": 1768414800000,
+  "seq": 76,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "calf_raise_single",
+   "reps": 15,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000004e",
+  "userId": "demo",
+  "ts": 1768414920000,
+  "seq": 77,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "calf_raise_single",
+   "reps": 14,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000004f",
+  "userId": "demo",
+  "ts": 1768415040000,
+  "seq": 78,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "dead_bug",
+   "reps": 17,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000050",
+  "userId": "demo",
+  "ts": 1768415160000,
+  "seq": 79,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-wed",
+   "exerciseId": "dead_bug",
+   "reps": 15,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000051",
+  "userId": "demo",
+  "ts": 1768415340000,
+  "seq": 80,
+  "type": "session_ended",
+  "payload": {
+   "sessionId": "w2-wed"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000052",
+  "userId": "demo",
+  "ts": 1768586400000,
+  "seq": 81,
+  "type": "session_started",
+  "payload": {
+   "sessionId": "w2-fri"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000053",
+  "userId": "demo",
+  "ts": 1768586520000,
+  "seq": 82,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 8,
+   "rir": 5,
+   "isWarmup": true,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000054",
+  "userId": "demo",
+  "ts": 1768586640000,
+  "seq": 83,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 16,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000055",
+  "userId": "demo",
+  "ts": 1768586760000,
+  "seq": 84,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 14,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000056",
+  "userId": "demo",
+  "ts": 1768586880000,
+  "seq": 85,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 12,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000057",
+  "userId": "demo",
+  "ts": 1768587000000,
+  "seq": 86,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "push_up_standard",
+   "reps": 13,
+   "rir": 0,
+   "isWarmup": false,
+   "isAmrap": true
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000058",
+  "userId": "demo",
+  "ts": 1768587120000,
+  "seq": 87,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "chin_up",
+   "reps": 7,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000059",
+  "userId": "demo",
+  "ts": 1768587240000,
+  "seq": 88,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "chin_up",
+   "reps": 6,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000005a",
+  "userId": "demo",
+  "ts": 1768587360000,
+  "seq": 89,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "chin_up",
+   "reps": 5,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000005b",
+  "userId": "demo",
+  "ts": 1768587480000,
+  "seq": 90,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "pike_push_up",
+   "reps": 11,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000005c",
+  "userId": "demo",
+  "ts": 1768587600000,
+  "seq": 91,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "pike_push_up",
+   "reps": 10,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000005d",
+  "userId": "demo",
+  "ts": 1768587720000,
+  "seq": 92,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "band_curl",
+   "reps": 16,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000005e",
+  "userId": "demo",
+  "ts": 1768587840000,
+  "seq": 93,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "band_curl",
+   "reps": 14,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-00000000005f",
+  "userId": "demo",
+  "ts": 1768587960000,
+  "seq": 94,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "side_plank",
+   "holdSeconds": 35,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000060",
+  "userId": "demo",
+  "ts": 1768588080000,
+  "seq": 95,
+  "type": "set_logged",
+  "payload": {
+   "sessionId": "w2-fri",
+   "exerciseId": "side_plank",
+   "holdSeconds": 30,
+   "rir": 2,
+   "isWarmup": false,
+   "isAmrap": false
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000061",
+  "userId": "demo",
+  "ts": 1768588260000,
+  "seq": 96,
+  "type": "session_ended",
+  "payload": {
+   "sessionId": "w2-fri"
+  },
+  "schemaVersion": 1
+ },
+ {
+  "id": "5a1e0000-0000-4000-8000-000000000062",
+  "userId": "demo",
+  "ts": 1768726800000,
+  "seq": 97,
+  "type": "checkin",
+  "payload": {
+   "feel": "fresh",
+   "soreRegions": []
+  },
+  "schemaVersion": 1
+ }
+]

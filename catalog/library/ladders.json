@@ -1,0 +1,22 @@
+{
+  "ladders": [
+    {"id":"push_up","name":"Push-ups","stepRatio":0.75},
+    {"id":"pike","name":"Pike push-ups"},
+    {"id":"table_row","name":"Table rows"},
+    {"id":"band_row","name":"Band rows"},
+    {"id":"pull_up","name":"Pull-ups"},
+    {"id":"band_pulldown","name":"Pulldowns"},
+    {"id":"squat","name":"Squats","stepRatio":0.7},
+    {"id":"single_leg","name":"Lunges","stepRatio":0.8},
+    {"id":"hinge","name":"Glute bridges","stepRatio":0.7},
+    {"id":"single_leg_rdl","name":"Single-leg RDLs"},
+    {"id":"hamstring_curl","name":"Leg curls"},
+    {"id":"calf","name":"Calf raises","stepRatio":0.7},
+    {"id":"core","name":"Core"},
+    {"id":"side_plank","name":"Side planks"},
+    {"id":"elbow_extension","name":"Triceps work"},
+    {"id":"elbow_flexion","name":"Curls","stepRatio":0.8},
+    {"id":"rear_delt","name":"Rear shoulder work","stepRatio":0.8},
+    {"id":"back_extension","name":"Back extensions"}
+  ]
+}

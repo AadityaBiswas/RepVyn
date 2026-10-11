@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>RepVyn</title>
+<meta name="application-name" content="RepVyn">
+<meta name="apple-mobile-web-app-title" content="RepVyn">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2F2F7">
+<!-- The Repvyn mark, traced from the logo picture; replace with the vector original when it exists. -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 344 344'%3E%3Crect width='344' height='344' rx='77' fill='%23DE223D'/%3E%3Cg fill='%23fff' transform='translate(50.7 70.2) scale(1.7833)'%3E%3Cpath d='M8.600 8.400H73A22 22 0 0 1 95 30.400Q95 38 91.500 43.500L80.500 60.400Q69.900 76.700 59.400 60L50 44.500H63A7.150 7.150 0 0 0 63 30.200H25Q20.200 30.200 17.900 26Z'/%3E%3Cpath d='M127.900 39.200H111Q103.500 39.200 98.600 46.900L69.400 92.400 44 50.800Q37.200 39.500 27 39.500H24Q8 39.500 15.200 52.800L45.500 99Q50.100 106.100 58 106.100H82Q90.600 106.100 94.800 98.700Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 344 344'%3E%3Crect width='344' height='344' rx='77' fill='%23DE223D'/%3E%3Cg fill='%23fff' transform='translate(50.7 70.2) scale(1.7833)'%3E%3Cpath d='M8.600 8.400H73A22 22 0 0 1 95 30.400Q95 38 91.500 43.500L80.500 60.400Q69.900 76.700 59.400 60L50 44.500H63A7.150 7.150 0 0 0 63 30.200H25Q20.200 30.200 17.900 26Z'/%3E%3Cpath d='M127.900 39.200H111Q103.500 39.200 98.600 46.900L69.400 92.400 44 50.800Q37.200 39.500 27 39.500H24Q8 39.500 15.200 52.800L45.500 99Q50.100 106.100 58 106.100H82Q90.600 106.100 94.800 98.700Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@500;600&amp;display=swap">
+<style>
+/* Tokens and motion from the canvas "Home Screen v2" (DESIGN.md). Light and dark are mirror images. */
+:root{--avatar:#E3E3E8;--accent-wash:rgba(217,30,54,0.14);--bg:#F2F2F7;--surface:#FFFFFF;--ink:#1C1C1E;--muted:#636366;--faint:#85858B;--line:#D1D1D6;--track:#E1E1E6;--idle:#AEAEB2;--accent:#D91E36;--accent-text:#D91E36;--soft:rgba(0,0,0,0.05);--hero:#C4223A;--hero-ink:#FFFFFF;--hero-card-shadow:0 28px 44px -28px rgba(196,34,58,0.75);--glass:rgba(255,255,255,0.76);--glass-ink:#1C1C1E;--glass-inv:#FFFFFF;--glass-muted:rgba(28,28,30,0.64);--glass-btn:rgba(0,0,0,0.07);--glass-step:#FFFFFF;--glass-edge:rgba(255,255,255,0.95);--glass-shadow:0 24px 48px -20px rgba(0,0,0,0.28);--v-track:rgba(0,0,0,0.14);--v-fill:#1C1C1E;--v-ink:#1C1C1E;--v-muted:rgba(28,28,30,0.62);--video:linear-gradient(165deg,#F4F4F8,#DCDCE2 55%,#C9C9CF);--video-ink:rgba(0,0,0,0.32);--nav:#FFFFFF;--nav-on:#1C1C1E;--nav-on-ink:#FFFFFF;--nav-ink:#636366;--nav-shadow:0 1px 2px rgba(0,0,0,0.06),0 18px 36px -16px rgba(0,0,0,0.3);--hero-shadow:0 14px 24px -14px rgba(217,30,54,0.8);--up:#1A6B3B;--up-bg:rgba(31,122,68,0.14);--down:#B0152B;--down-bg:rgba(217,30,54,0.11);--card-shadow:0 1px 3px rgba(0,0,0,0.05),0 22px 44px -18px rgba(0,0,0,0.25);--mono:'Geist Mono',ui-monospace,Consolas,monospace;
+  /* The work scale: more work is further from the ground. Floating chrome is one frosted material. */
+  --w1:#EE8794;--w2:#D91E36;--w3:#7A0E1E;--on-w1:#5E0A17;--on-w2:#FFFFFF;--on-w3:#FFFFFF;--thumb:#F2F2F7;--fill:rgba(28,28,30,0.07);--knob:#FFFFFF;--frost:rgba(255,255,255,0.8);--frost-shadow:inset 0 1px 0 rgba(255,255,255,0.9),0 16px 32px -18px rgba(0,0,0,0.4);--panel-shadow:inset 0 1px 0 rgba(255,255,255,0.95),0 36px 64px -30px rgba(0,0,0,0.6);--today-shadow:0 10px 16px -10px rgba(217,30,54,0.6);
+  /* Clear of the status bar and home indicator on a real phone. */
+  --top:max(56px, calc(env(safe-area-inset-top) + 12px));--top-tight:max(16px, calc(env(safe-area-inset-top) + 4px));--bottom:max(28px, calc(env(safe-area-inset-bottom) + 12px));color-scheme:light}
+:root[data-theme="dark"]{--avatar:#3A3A3C;--accent-wash:rgba(226,42,64,0.26);--hero:#B8233A;--hero-card-shadow:0 18px 36px -24px rgba(184,35,58,0.4);--glass:rgba(28,28,30,0.58);--glass-ink:#FFFFFF;--glass-inv:#1C1C1E;--glass-muted:rgba(255,255,255,0.72);--glass-btn:rgba(255,255,255,0.16);--glass-step:rgba(255,255,255,0.18);--glass-edge:rgba(255,255,255,0.18);--glass-shadow:0 24px 48px -20px rgba(0,0,0,0.6);--v-track:rgba(255,255,255,0.3);--v-fill:#FFFFFF;--v-ink:#FFFFFF;--v-muted:rgba(255,255,255,0.72);--video:linear-gradient(165deg,#5A5A5E,#2C2C2E 55%,#1C1C1E);--video-ink:rgba(255,255,255,0.45);--bg:#000000;--surface:#1C1C1E;--ink:#F5F5F7;--muted:#A1A1A6;--faint:#8E8E93;--line:#3A3A3C;--track:#2C2C2E;--idle:#48484A;--accent:#E22A40;--accent-text:#FF6B7B;--soft:rgba(255,255,255,0.09);--nav:#2C2C2E;--nav-on:#F5F5F7;--nav-on-ink:#000000;--nav-ink:rgba(245,245,247,0.66);--nav-shadow:0 18px 36px -14px rgba(0,0,0,0.9);--hero-shadow:0 26px 48px -22px rgba(226,42,64,0.55);--card-shadow:none;--up:#3DD68C;--up-bg:rgba(61,214,140,0.16);--down:#FF6B7B;--down-bg:rgba(255,107,123,0.16);--w1:#6B1524;--w2:#E22A40;--w3:#FF6B7D;--on-w1:#FFFFFF;--on-w2:#FFFFFF;--on-w3:#3A0810;--thumb:#2C2C2E;--fill:rgba(255,255,255,0.1);--knob:#636366;--frost:rgba(44,44,46,0.72);--frost-shadow:inset 0 1px 0 rgba(255,255,255,0.14),0 16px 32px -14px rgba(0,0,0,0.9);--panel-shadow:inset 0 1px 0 rgba(255,255,255,0.16),0 36px 64px -30px rgba(0,0,0,0.9);color-scheme:dark}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+#app{height:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:not-allowed}
+.v2{position:relative;width:100%;max-width:440px;height:100%;height:100dvh;margin:0 auto;overflow:hidden;background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums}
+@media (min-width:600px){body{background:#D8D8DE}:root[data-theme="dark"] body{background:#111113}.v2{max-height:900px;top:50%;transform:translateY(-50%);border-radius:44px;box-shadow:0 30px 80px -30px rgba(0,0,0,0.45)}}
+.v2 ::selection{background:rgba(217,30,54,0.22)}
+.v2 :focus{outline:none}
+.v2 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.v2 nav :focus-visible{outline-color:var(--accent)}
+.seg{transition:transform 420ms cubic-bezier(0.34,1.56,0.64,1)}
+.fill{transform-origin:left center;transition-property:transform,background-color;transition-timing-function:cubic-bezier(0.34,1.4,0.64,1),ease}
+.ring{transition:stroke-dashoffset 1s linear}
+.knob{transform-origin:155px 155px;transition:rotate 1s linear}
+.holdbar{transform-origin:left center;transition:transform 1s linear}
+.scroll::-webkit-scrollbar{display:none}
+.frost{background:var(--frost);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:var(--frost-shadow)}
+.press{transition:scale 160ms cubic-bezier(0.23,1,0.32,1)}
+.pick[aria-pressed="true"]{animation:pick 360ms linear(0,0.204,0.624,0.96,1.112,1.12,1.064,1.012,0.988,0.988,0.996,1)}
+@keyframes pick{from{scale:0.94}to{scale:1}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.press:active{scale:0.97}
+.tab{transition:background-color 200ms cubic-bezier(0.23,1,0.32,1),color 200ms cubic-bezier(0.23,1,0.32,1),scale 160ms cubic-bezier(0.23,1,0.32,1)}
+.tab:active{scale:0.95}
+/* Entrances, page moves and the finish sequence are driven by Motion (app/src/ui/motion.ts). */
+.page-in,.page-out{box-shadow:-24px 0 48px -24px rgba(0,0,0,0.35)}
+@media (prefers-reduced-transparency:reduce){.glass,.frost{background:var(--surface) !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}
+@media (prefers-reduced-motion:reduce){.knob,.holdbar,.fill,.seg,.ring{transition:none}.pick[aria-pressed="true"]{animation:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>/*APP*/</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+[
+  {
+    "name": "today",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 19
+      },
+      "sizes": [
+        64,
+        34,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 5,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "workout",
+    "fails": [],
+    "warns": [
+      "Text inside the system's safe areas: \"Single-leg RDL\" (home indicator)"
+    ],
+    "facts": {
+      "fonts": {
+        "Geist": 10
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 3,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "body",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 13
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15,
+        13
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 4,
+      "accentHues": [],
+      "cards": 2
+    }
+  },
+  {
+    "name": "today-dark",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 19
+      },
+      "sizes": [
+        64,
+        34,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 5,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  }
+]

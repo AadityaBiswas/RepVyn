@@ -1,0 +1,90 @@
+[
+  {
+    "name": "a-plate",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 17
+      },
+      "sizes": [
+        64,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 2,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "b-thermal",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist Mono": 15,
+        "Geist": 3
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 2,
+      "accentHues": [
+        0
+      ],
+      "cards": 1
+    }
+  },
+  {
+    "name": "c-poster",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 21
+      },
+      "sizes": [
+        84,
+        20,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "400",
+        "500",
+        "600",
+        "700",
+        "900"
+      ],
+      "leftEdges": 4,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  }
+]

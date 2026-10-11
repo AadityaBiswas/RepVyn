@@ -1,0 +1,373 @@
+{
+  "version": 1,
+  "effort": {
+    "stimulus": [
+      1.0,
+      1.0,
+      0.95,
+      0.85,
+      0.6,
+      0.3
+    ],
+    "fatigue": [
+      1.3,
+      1.1,
+      1.0,
+      0.85,
+      0.65,
+      0.4
+    ]
+  },
+  "reps": {
+    "ref": 10,
+    "exponent": 0.25,
+    "min": 5,
+    "max": 40
+  },
+  "novelty": {
+    "amp": 0.6,
+    "decay": 2,
+    "windowDays": 56,
+    "experience": {
+      "beginner": 1.0,
+      "intermediate": 1.0,
+      "advanced": 0.5
+    }
+  },
+  "lengthenedFactor": 1.25,
+  "hold": {
+    "secondsPerRep": 3
+  },
+  "recovery": {
+    "fastShare": 0.4,
+    "fastHalfLifeH": 4,
+    "slowHalfLifeH": {
+      "chest": 22,
+      "upper_back": 22,
+      "quads": 22,
+      "glutes": 22,
+      "hamstrings": 22,
+      "lower_back": 22,
+      "front_delt": 16,
+      "side_rear_delt": 16,
+      "triceps": 16,
+      "biceps": 16,
+      "calves": 16,
+      "abs": 16
+    }
+  },
+  "readiness": {
+    "readyBelow": 1.5,
+    "fatiguedAbove": 3.5,
+    "weights": {
+      "ready": 1.0,
+      "recovering": 0.4,
+      "fatigued": 0.0
+    }
+  },
+  "systemic": {
+    "halfLifeH": 24,
+    "restRatio": 0.8,
+    "defaultTypicalSession": 12,
+    "minSessionsForTypical": 3,
+    "typicalWindow": 10
+  },
+  "stimulus": {
+    "sessionMax": 6
+  },
+  "weeklyTargets": {
+    "chest": 10,
+    "upper_back": 10,
+    "quads": 10,
+    "glutes": 8,
+    "hamstrings": 8,
+    "lower_back": 4,
+    "front_delt": 4,
+    "side_rear_delt": 6,
+    "triceps": 6,
+    "biceps": 6,
+    "calves": 6,
+    "abs": 6
+  },
+  "targetMultipliers": {
+    "goal": {
+      "muscle": 1.0,
+      "general_fitness": 0.7
+    },
+    "experience": {
+      "beginner": 0.7,
+      "intermediate": 1.0,
+      "advanced": 1.2
+    }
+  },
+  "capacity": {
+    "fallbackM": 10,
+    "emaAlpha": 0.3,
+    "freshBelow": 0.5,
+    "sessionCleanBelow": 0.3,
+    "beta": 0.08,
+    "repRange": [
+      6,
+      20
+    ],
+    "staleDays": 28,
+    "staleFactor": 0.93,
+    "targetRir": {
+      "beginner": 3,
+      "intermediate": 2,
+      "advanced": 1
+    },
+    "maxDrop": 0.45,
+    "maxObsFactor": 1.5,
+    "maxStep": 0.5
+  },
+  "energy": {
+    "secondsPerRep": 3,
+    "met": {
+      "compound": [
+        7.5,
+        7.5,
+        6.5,
+        5.15,
+        3.8,
+        3.8
+      ],
+      "light": [
+        3.8,
+        3.8,
+        3.5,
+        3.15,
+        2.8,
+        2.8
+      ],
+      "rest": 1.3
+    },
+    "lightPatterns": [
+      "core",
+      "calf",
+      "elbow_flexion",
+      "elbow_extension",
+      "rear_delt",
+      "back_extension",
+      "hamstring_curl"
+    ],
+    "recoveryFraction": 0.1,
+    "maxRestMin": 5,
+    "defaultRestMin": 1.5,
+    "uncertainty": {
+      "withBody": 0.25,
+      "massOnly": 0.3
+    }
+  },
+  "session": {
+    "maxGapH": 3
+  },
+  "range": {
+    "window": 30,
+    "minObs": 8,
+    "quantile": 0.9,
+    "defaultRel": 0.2,
+    "minRel": 0.05
+  },
+  "level": {
+    "priorWeight": 2,
+    "ladderPriorWeight": 1,
+    "window": 5
+  },
+  "soreness": {
+    "riseH": 24,
+    "decayH": 48,
+    "noveltyAmp": 2,
+    "level": {
+      "beginner": 1.0,
+      "intermediate": 0.8,
+      "advanced": 0.6
+    },
+    "thresholds": [
+      1,
+      2.5,
+      4
+    ],
+    "learn": {
+      "sigma": [
+        0.25,
+        4,
+        21
+      ],
+      "rho": [
+        0.6,
+        1.6667,
+        13
+      ],
+      "priorSd": {
+        "sigma": 0.5,
+        "rho": 0.3
+      },
+      "width": 0.35,
+      "floor": 0.03,
+      "windowH": 168
+    }
+  },
+  "tolerance": {
+    "ref": 5,
+    "init": {
+      "beginner": 4.5,
+      "intermediate": 5,
+      "advanced": 7.5
+    },
+    "learnRate": 0.2,
+    "max": 15
+  },
+  "calibration": {
+    "noiseBand": 0.08,
+    "errorClamp": 0.3,
+    "rho": {
+      "init": 1.0,
+      "rate": 0.1,
+      "min": 0.6,
+      "max": 1.8,
+      "beatUpNudge": 1.02
+    },
+    "rirBias": {
+      "init": 0,
+      "rate": 0.3,
+      "min": -2,
+      "max": 5,
+      "amrapIntervalDays": 14
+    },
+    "acute": {
+      "init": 0.12,
+      "rate": 0.2,
+      "min": 0.03,
+      "max": 0.3,
+      "minDeltaF": 0.3,
+      "minPrevM": 3
+    },
+    "deload": {
+      "window": 6,
+      "minObs": 4,
+      "triggerBelow": -0.1,
+      "clearAbove": -0.03,
+      "maxDays": 7
+    },
+    "confidence": {
+      "calibrating": 3,
+      "low": 8,
+      "medium": 20
+    },
+    "calibratingMinObs": 6,
+    "calibratingMinDays": 7
+  },
+  "autoreg": {
+    "dropFraction": 0.3
+  },
+  "external": {
+    "intensity": {
+      "light": 0.5,
+      "moderate": 1,
+      "hard": 1.5
+    },
+    "presets": {
+      "football": {
+        "fatigue": {
+          "quads": 2,
+          "hamstrings": 2,
+          "calves": 1.5,
+          "glutes": 1.5,
+          "abs": 0.5
+        },
+        "systemic": 8
+      },
+      "running": {
+        "fatigue": {
+          "quads": 1.5,
+          "calves": 2,
+          "hamstrings": 1,
+          "glutes": 1
+        },
+        "systemic": 6
+      },
+      "cycling": {
+        "fatigue": {
+          "quads": 2,
+          "glutes": 1
+        },
+        "systemic": 5
+      },
+      "badminton": {
+        "fatigue": {
+          "quads": 1,
+          "calves": 1.5,
+          "front_delt": 0.5,
+          "side_rear_delt": 0.5
+        },
+        "systemic": 5
+      },
+      "cricket": {
+        "fatigue": {
+          "quads": 1,
+          "glutes": 0.5,
+          "side_rear_delt": 0.5
+        },
+        "systemic": 4
+      }
+    }
+  },
+  "planner": {
+    "overloadLambda": 1.0,
+    "sessionFatigueCap": 1.1,
+    "continuityBonus": 0.3,
+    "continuityDays": 21,
+    "minScore": 0.1,
+    "sets": {
+      "base": 3,
+      "highNeed": 0.7,
+      "highSets": 4,
+      "lowNeed": 0.35,
+      "lowSets": 2,
+      "min": 2
+    },
+    "time": {
+      "warmupMin": 3,
+      "minPerSet": 1.75,
+      "unilateralSetFactor": 1.6,
+      "transitionMin": 1
+    },
+    "calibrationBonus": 0.5,
+    "likeBonus": 0.2,
+    "dislikePenalty": 0.5,
+    "painAvoidDays": 14,
+    "fullBodyBonusMaxDays": 3,
+    "fullBodyBonus": 1.2,
+    "deloadSetFactor": 0.5,
+    "deloadRirAdd": 2,
+    "intensityRirAdd": {
+      "easy": 2,
+      "hard": -1
+    },
+    "focus": {
+      "boost": 2,
+      "needFloor": 0.5,
+      "fatigueCap": 2.0
+    }
+  },
+  "strength": {
+    "repRange": [
+      6,
+      15
+    ],
+    "usualRir": 2,
+    "initFactor": 0.85,
+    "fallbackBodyMassKg": 70,
+    "maxObsReps": 50
+  },
+  "difficulty": {
+    "ratingAlpha": 0.5,
+    "demandAlpha": 0.25,
+    "demandMax": 1.5,
+    "trustK": 2,
+    "neighbourTrust": 0.3,
+    "excludeAbove": 4.5,
+    "preferWeight": 0.3
+  }
+}

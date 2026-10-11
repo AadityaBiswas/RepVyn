@@ -1,0 +1,9 @@
+node_modules/
+app/dist/
+demo/dist/
+.env
+supabase/.env
+supabase/.temp/
+supabase/.branches/
+*.db
+out/

@@ -1,0 +1,35 @@
+# Supabase CLI project config for local development (`npx supabase start`).
+# Production settings live in the dashboard; see docs/LAUNCH-SETUP.md.
+project_id = "repvyn"
+
+[api]
+schemas = ["public"]
+max_rows = 1000
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["https://app.repvyn.com"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+otp_length = 6
+otp_expiry = 600
+
+[auth.rate_limit]
+email_sent = 10
+
+[functions.razorpay-webhook]
+verify_jwt = false
+
+[functions.send-reminders]
+verify_jwt = false
+
+[functions.billing]
+verify_jwt = true
+
+[functions.account-delete]
+verify_jwt = true

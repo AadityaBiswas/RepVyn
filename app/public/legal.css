@@ -1,0 +1,10 @@
+:root{--bg:#F2F2F7;--surface:#fff;--ink:#1C1C1E;--muted:#636366;--accent:#D91E36;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#000;--surface:#1C1C1E;--ink:#F5F5F7;--muted:#A1A1A6;--accent:#FF6B7B}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{box-sizing:border-box;max-width:720px;margin:0 auto;padding:48px 20px 80px}
+h1{font-size:34px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 8px}
+h2{font-size:20px;letter-spacing:-0.02em;margin:32px 0 8px}
+p,li{color:var(--ink)}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+.draft{background:var(--surface);border-radius:16px;padding:12px 16px;color:var(--muted);font-size:14px}

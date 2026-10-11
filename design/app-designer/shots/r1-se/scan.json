@@ -1,0 +1,145 @@
+[
+  {
+    "name": "today",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 18
+      },
+      "sizes": [
+        64,
+        34,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 4,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "workout",
+    "fails": [],
+    "warns": [
+      "Text inside the system's safe areas: \"Single-leg RDL\" (home indicator); \"3 sets · 8 reps each sid\" (home indicator)"
+    ],
+    "facts": {
+      "fonts": {
+        "Geist": 11
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 3,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "set",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist Mono": 1,
+        "Geist": 5
+      },
+      "sizes": [
+        96,
+        34,
+        17,
+        15,
+        13
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 1,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "body",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 10
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 4,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "today-dark",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 18
+      },
+      "sizes": [
+        64,
+        34,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 4,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  }
+]

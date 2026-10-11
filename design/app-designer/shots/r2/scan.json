@@ -1,0 +1,174 @@
+[
+  {
+    "name": "today",
+    "fails": [],
+    "warns": [
+      "6 distinct left edges in the left third. Align to fewer verticals."
+    ],
+    "facts": {
+      "fonts": {
+        "Geist": 25
+      },
+      "sizes": [
+        64,
+        34,
+        20,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "400",
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 6,
+      "accentHues": [
+        0
+      ],
+      "cards": 3
+    }
+  },
+  {
+    "name": "workout",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 13
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 3,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "set",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist Mono": 1,
+        "Geist": 5
+      },
+      "sizes": [
+        96,
+        34,
+        17,
+        15,
+        13
+      ],
+      "weights": [
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 1,
+      "accentHues": [
+        0
+      ],
+      "cards": 2
+    }
+  },
+  {
+    "name": "body",
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Geist": 15
+      },
+      "sizes": [
+        34,
+        20,
+        17,
+        15,
+        13
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 4,
+      "accentHues": [],
+      "cards": 2
+    }
+  },
+  {
+    "name": "signature",
+    "fails": [],
+    "warns": [
+      "Only 2 text sizes across 12 text elements. Hierarchy is flat."
+    ],
+    "facts": {
+      "fonts": {
+        "Geist": 12
+      },
+      "sizes": [
+        20,
+        13
+      ],
+      "weights": [
+        "400",
+        "600",
+        "700"
+      ],
+      "leftEdges": 2,
+      "accentHues": [],
+      "cards": 0
+    }
+  },
+  {
+    "name": "today-dark",
+    "fails": [],
+    "warns": [
+      "6 distinct left edges in the left third. Align to fewer verticals."
+    ],
+    "facts": {
+      "fonts": {
+        "Geist": 25
+      },
+      "sizes": [
+        64,
+        34,
+        20,
+        17,
+        15,
+        13,
+        11
+      ],
+      "weights": [
+        "400",
+        "500",
+        "600",
+        "700",
+        "800"
+      ],
+      "leftEdges": 6,
+      "accentHues": [
+        0
+      ],
+      "cards": 3
+    }
+  }
+]
