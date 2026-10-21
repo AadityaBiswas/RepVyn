@@ -20,7 +20,7 @@ Until a step is done the app keeps working: with no backend configured it runs f
 Check: `npm run dev:backend` is the offline stand-in; for the real project, signing in from the built app (step 5) should email a code.
 
 ## 3. Razorpay (KYC takes days, start early)
-1. Complete KYC for your business. Razorpay will review your website: it must show the privacy, terms and refund pages (in `app/public`, fill in every `[BRACKETED]` item and have them checked by a lawyer or CA first).
+1. Complete KYC for your business. Razorpay will review your website: it must show the privacy, terms and refund pages (in `legal/`, fill in every `[BRACKETED]` item and have them checked by a lawyer or CA first).
 2. Ask Razorpay support to enable **Subscriptions** and **international card payments** (for US users, recurring USD).
 3. Create four plans (Subscriptions → Plans), and note each plan id:
    - `in_monthly` ₹249 / month, `in_yearly` ₹1,499 / year (INR)
@@ -45,13 +45,8 @@ Check: Edge Functions → send-reminders → Logs shows a run every 5 minutes.
 ## 6. PostHog (5 min, optional)
 Create a project (US or EU cloud) and copy the project API key.
 
-## 7. Web hosting on Cloudflare Pages (15 min)
-1. Pages → Create → connect the GitHub repository.
-2. Build command `npm run app`, output directory `app/dist`, Node 22.
-3. Environment variables (all public by design), from `.env.example`: `REPVYN_SUPABASE_URL`, `REPVYN_SUPABASE_ANON_KEY`, `REPVYN_RAZORPAY_KEY_ID`, `REPVYN_VAPID_PUBLIC_KEY`, `REPVYN_POSTHOG_KEY`, `REPVYN_POSTHOG_HOST`, `REPVYN_SUPPORT_EMAIL`.
-4. Add your domain (for example `app.repvyn.com`) and make sure it matches `APP_ORIGINS` and the Supabase Site URL.
-
-Check: open the site on a phone, add it to the home screen, turn on airplane mode, and reopen it: it should still open. The build log line shows which features are live, for example `accounts, billing, push, analytics`.
+## 7. Privacy policy and terms (30 min)
+Fill every `[BRACKETED]` item in `legal/privacy.html` and `legal/terms.html`, host the folder on any static host (GitHub Pages is free), and use those links in the Play Console listing. The web app that used to be built here was removed on 21 Oct 2026; see `docs/MOBILE-LAUNCH-PLAN.md`.
 
 ## 8. Test the money path with test keys
 1. Sign in, open Profile → RepVyn Pro, and subscribe with a Razorpay test card or test UPI id.

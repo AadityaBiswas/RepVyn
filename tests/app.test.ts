@@ -1,10 +1,10 @@
 // The app's screen logic (app/src): what Today, Progress and the workout show, driven through the real engine replay.
 import { describe, expect, it } from "vitest";
-import { activation, activity, addDays, nudgeWeight, startingPoints, strengthRows, dayStart, exerciseDetail, isLegsDay, makePlan, needsCheckin, planRows, planValues, planWhy, programWeek, recovering, red, regionWords, streakWeeks, trainedToday, weekStart, weekStrip } from "../app/src/model";
-import { DEFAULT_SETTINGS, append, engineState, fresh, load, setFeedback, unitsFor, withProfile, type Saved } from "../app/src/store";
-import { doneDay, levelFromAnswers, planWeeks, readyAt, startingPoint, strain, strainBand, strainRows } from "../app/src/model";
-import { growth, learnedLine, learnedRows, mostWorked } from "../app/src/finish";
-import { REST_SECONDS, answer, asksLeft, fromPlan, isAllOut, nextSet, setDone, start, tick, toEvents, type Run, type RunExercise } from "../app/src/workout";
+import { activation, activity, addDays, nudgeWeight, startingPoints, strengthRows, dayStart, exerciseDetail, isLegsDay, makePlan, needsCheckin, planRows, planValues, planWhy, programWeek, recovering, red, regionWords, streakWeeks, trainedToday, weekStart, weekStrip } from "../shared/model";
+import { DEFAULT_SETTINGS, append, engineState, fresh, load, setFeedback, unitsFor, withProfile, type Saved } from "../shared/store";
+import { doneDay, levelFromAnswers, planWeeks, readyAt, startingPoint, strain, strainBand, strainRows } from "../shared/model";
+import { growth, learnedLine, learnedRows, mostWorked } from "../shared/finish";
+import { REST_SECONDS, answer, asksLeft, fromPlan, isAllOut, nextSet, setDone, start, tick, toEvents, type Run, type RunExercise } from "../shared/workout";
 
 const H = 3_600_000;
 const MON = new Date(2026, 9, 5, 18).getTime(); // a Monday, 18:00 local

@@ -1,16 +1,16 @@
-// The app shell, ported from app/src/ui/app.tsx: state, pushed pages, the workout sheet, and every action the screens call.
+// The app shell: state, pushed pages, the workout sheet, and every action the screens call.
 // Sign-in and sync are in cloud.ts, reminders in reminders.ts; no Pro gating or telemetry yet.
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AppState, BackHandler, Dimensions, useColorScheme } from "react-native";
 import { predictiveBack } from "../modules/predictive-back";
-import { SMOOTH, THROWN, pageX, spring } from "./motion";
+import { THROWN, pageX, spring } from "./motion";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ownedWeights, type EngineState, type Plan, type Region } from "../../src/engine";
-import { dayStart, makePlan, PROGRAM_ID, type LevelAsk, type PlanChoice } from "../../app/src/model";
-import { append, engineState, fresh, parse, setFeedback, STORE_KEY, withProfile, type Saved, type Settings } from "../../app/src/store";
-import { isEmpty, outbox, stampDoc } from "../../app/src/cloud/syncCore";
+import { dayStart, makePlan, PROGRAM_ID, type LevelAsk, type PlanChoice } from "../../shared/model";
+import { append, engineState, fresh, parse, setFeedback, STORE_KEY, withProfile, type Saved, type Settings } from "../../shared/store";
+import { isEmpty, outbox, stampDoc } from "../../shared/syncCore";
 import { attach, requestSync } from "./cloud";
-import * as W from "../../app/src/workout";
+import * as W from "../../shared/workout";
 import { THEMES, type Colors, type ThemeName } from "./theme";
 import { tap, thud } from "./haptics";
 import { scheduleReminders } from "./reminders";

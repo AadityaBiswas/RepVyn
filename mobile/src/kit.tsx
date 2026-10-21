@@ -1,4 +1,4 @@
-// Small shared pieces, after app/src/ui/kit.tsx and icons.tsx: text, option pills, segmented switch, stepper, back button, bottom action, icons.
+// Small shared pieces: text, option pills, segmented switch, stepper, back button, bottom action, icons.
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { Animated, PanResponder, ScrollView, StyleSheet, Text, View, useWindowDimensions, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
 import { Press, Roll, SNAP, THROWN, pageX, project, rubberband, spring, still, tween } from "./motion";

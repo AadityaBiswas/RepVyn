@@ -11,23 +11,16 @@
     "noEmit": true,
     "types": [
       "node"
-    ],
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    ]
   },
   "include": [
     "src",
     "tests",
     "examples",
-    "demo",
     "catalog",
-    "app/src",
     "supabase/functions/_shared/razorpay.ts",
     "supabase/functions/_shared/http.ts",
     "supabase/functions/_shared/reminders.ts",
-    "scripts"
-  ],
-  "exclude": [
-    "scripts/e2e-sync.ts"
+    "shared"
   ]
 }

@@ -1,9 +1,9 @@
-// Cloud sync rules (app/src/cloud/syncCore.ts, ADR-0003): two devices, deletes, retries, settings conflicts.
+// Cloud sync rules (shared/syncCore.ts, ADR-0003): two devices, deletes, retries, settings conflicts.
 import { describe, expect, it } from "vitest";
-import { adopt, afterPush, applyPull, BATCH, docOf, outbox, reminderTime, stampDoc, type PullPage, type RemoteEvent } from "../app/src/cloud/syncCore";
-import { append, DEFAULT_SETTINGS, engineState, fresh, setFeedback, withProfile, type Saved } from "../app/src/store";
-import { makePlan } from "../app/src/model";
-import { fromPlan, setDone, start, toEvents, type Run } from "../app/src/workout";
+import { adopt, afterPush, applyPull, BATCH, docOf, outbox, reminderTime, stampDoc, type PullPage, type RemoteEvent } from "../shared/syncCore";
+import { append, DEFAULT_SETTINGS, engineState, fresh, setFeedback, withProfile, type Saved } from "../shared/store";
+import { makePlan } from "../shared/model";
+import { fromPlan, setDone, start, toEvents, type Run } from "../shared/workout";
 
 const U = "00000000-0000-4000-8000-0000000000aa";
 const T0 = Date.UTC(2026, 9, 1, 8);

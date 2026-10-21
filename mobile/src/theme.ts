@@ -1,4 +1,4 @@
-// The web app's tokens (app/index.html), as plain colours per theme. Light and dark are mirror images.
+// Colour tokens per theme. Light and dark are mirror images.
 export type ThemeName = "light" | "dark";
 
 const light = {

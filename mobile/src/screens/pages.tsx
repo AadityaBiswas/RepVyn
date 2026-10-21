@@ -1,15 +1,15 @@
-// Pages pushed over Today, after Setup, Sore and Done in app/src/ui/pages.tsx (without the body figures for now).
+// Pages pushed over Today, (without the body figures for now).
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { View } from "react-native";
 import { REGIONS, REGION_NAMES } from "../../../src/engine";
-import { CORE, UPPER, dayStart, doneDay, isLegsDay, planActivation, planRegions, planRows, planTitle, regionWords } from "../../../app/src/model";
+import { CORE, UPPER, dayStart, doneDay, isLegsDay, planActivation, planRegions, planRows, planTitle, regionWords } from "../../../shared/model";
 import { Figures } from "../figure";
 import { BADGE, Enter, Later, LIVELY, POP, PULSE, ROW, Roll, SWAP, Press } from "../motion";
 import { useApp } from "../app";
 import { More, BackButton, BottomCta, Card, Chevron, Clock, EquipStack, Faint, Grid, H1, IntensityIcon, MuscleDot, Opt, Page, Play, Segmented, Sheet, Swap, T, ThumbDown, ThumbUp, tick } from "../kit";
 import { EquipOptions, equipLabel } from "../pickers";
+import { DURATIONS } from "./onboard";
 
-const DURATIONS = [20, 30, 40, 50];
 const INTENSITY = [["easy", "Easy"], ["normal", "Normal"], ["hard", "Hard"]] as const;
 const cap = (w: string) => (w ? w[0]!.toUpperCase() + w.slice(1) : "");
 

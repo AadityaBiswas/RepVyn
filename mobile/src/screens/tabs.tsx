@@ -1,4 +1,4 @@
-// The Body, Progress and Profile tabs, after app/src/ui/tabs.tsx (without the body figures for now).
+// The Body, Progress and Profile tabs (without the body figures for now).
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Animated, PanResponder, ScrollView, View } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
@@ -6,18 +6,18 @@ import { REGIONS, REGION_NAMES, ownedWeights } from "../../../src/engine";
 import {
   H, PROGRAM_NAME, STRAIN, WORK, activity, addDays, dayStart, nudgeWeight, planWeeks, programWeek, readyAt, sparkPath,
   startingPoints, strain, strainColour, strainFigure, strainRows, strengthRows, weekMuscles, weightLabel, type StrainRow,
-} from "../../../app/src/model";
-import { dumbbellsOf } from "../../../app/src/store";
+} from "../../../shared/model";
+import { dumbbellsOf } from "../../../shared/store";
 import { useApp } from "../app";
 import { Card, Chevron, Clock, EquipStack, Faint, Grid, H1, H2, MuscleDot, Opt, Page, Stepper, T, shadow, tick, tap } from "../kit";
 import { cssVar } from "../theme";
 import { Figures } from "../figure";
 import { Enter, Later, POP, Press, SMOOTH, SNAP, THROWN, project, still } from "../motion";
-import { bodyWeight } from "./onboard";
+import { DAYS, DURATIONS, GOALS, bodyWeight } from "./onboard";
 import { DumbbellPicker, EquipOptions, equipLabel } from "../pickers";
 import { AccountSection } from "./account";
 
-/** As the web app's REMINDERS (app/src/ui/tabs.tsx), without "Off". */
+/** Reminder times; "Off" is its own pill. */
 const REMINDERS = ["6:30 am", "12:30 pm", "6:30 pm", "9:00 pm"];
 
 export const Section = ({ title, children, top = 32 }: { title: ReactNode; children: ReactNode; top?: number }) => (
@@ -197,9 +197,7 @@ export function Body() {
   const rows = t === 0 ? all : strainRows(s, now, now + t * H);
   return (
     <Page bottom={120}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "baseline" }}>
-        <H1>Body</H1>
-      </View>
+      <H1>Body</H1>
       <T color={c.muted} style={{ marginTop: 8 }}>{readyLine(rows, now)}</T>
       <View style={{ marginTop: 12 }}><Later height={262}><Figures lead="Still recovering" kind="level" values={strainFigure(strain(s, now + t * H))} theme={theme} h={262} /></Later></View>
       <View style={{ marginTop: 8, flexDirection: "row", justifyContent: "center", gap: 14 }}>
@@ -327,7 +325,6 @@ export function Progress() {
 
 // ---------- Profile ----------
 
-const GOALS = [["muscle", "Build muscle", "Full weekly volume"], ["general_fitness", "General fitness", "Lighter weeks"]] as const;
 const LEVELS = [["auto", "Auto"], ["beginner", "Beginner"], ["intermediate", "Intermediate"], ["advanced", "Advanced"]] as const;
 
 /** A settings row: label, current value, and its options underneath when open. */
@@ -354,7 +351,6 @@ export function Profile() {
   const db = dumbbellsOf(st.dumbbells);
   const owned = db ? ownedWeights({ dumbbells: db } as never) : [];
   const dbLabel = owned.length ? (owned.length === 1 ? weightLabel(owned[0]!, "metric") : `${owned[0]}–${owned.at(-1)} kg`) : "None";
-  const toggle = <K extends "avoid">(k: K, m: (typeof REGIONS)[number]) => app.settings({ [k]: st[k].includes(m) ? st[k].filter((x) => x !== m) : [...st[k], m] });
   return (
     <Page bottom={120}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 16 }}>
@@ -373,10 +369,10 @@ export function Profile() {
       <Section title="Training">
         <Card style={{ paddingHorizontal: 20 }}>
           <Row id="days" label="Days per week" value={String(st.days)}>
-            <Grid cols={5}>{[2, 3, 4, 5, 6].map((d) => <Opt key={d} label={String(d)} on={st.days === d} pick={() => app.settings({ days: d })} />)}</Grid>
+            <Grid cols={5}>{DAYS.map((d) => <Opt key={d} label={String(d)} on={st.days === d} pick={() => app.settings({ days: d })} />)}</Grid>
           </Row>
           <Row id="length" label="Workout length" value={<View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}><Clock size={16} color={c.muted} /><T size={16} color={c.muted}>{st.minutes} min</T></View>}>
-            <Grid cols={4}>{[20, 30, 40, 50].map((m) => <Opt key={m} label={`${m} min`} on={st.minutes === m} pick={() => app.settings({ minutes: m })} />)}</Grid>
+            <Grid cols={4}>{DURATIONS.map((m) => <Opt key={m} label={`${m} min`} on={st.minutes === m} pick={() => app.settings({ minutes: m })} />)}</Grid>
           </Row>
           <Row id="equip" label="Equipment" value={<View accessibilityLabel={equipLabel(st.equipment)}><EquipStack items={st.equipment} size={28} body ring={c.surface} /></View>}>
             <EquipOptions value={st.equipment} set={(equipment) => app.settings({ equipment })} />
@@ -387,7 +383,7 @@ export function Profile() {
             </Row>
           )}
           <Row id="avoid" label="Muscles to avoid" value={st.avoid.length ? String(st.avoid.length) : "None"} last>
-            <Grid cols={2}>{REGIONS.map((m) => <Opt key={m} label={REGION_NAMES[m]} on={st.avoid.includes(m)} pick={() => toggle("avoid", m)} />)}</Grid>
+            <Grid cols={2}>{REGIONS.map((m) => <Opt key={m} label={REGION_NAMES[m]} on={st.avoid.includes(m)} pick={() => app.settings({ avoid: st.avoid.includes(m) ? st.avoid.filter((x) => x !== m) : [...st.avoid, m] })} />)}</Grid>
           </Row>
         </Card>
       </Section>

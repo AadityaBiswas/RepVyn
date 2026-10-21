@@ -1,6 +1,6 @@
 // Free vs Pro (ADR-0005, launch plan "Pricing and monetization"). Pure: the app passes in
 // whether billing is live, the cached entitlement and the clock.
-import type { Equipment } from "../../src/engine";
+import type { Equipment } from "../src/engine";
 import type { Settings } from "./store";
 
 /** Programs and equipment in the free tier. Everything else needs Pro. */

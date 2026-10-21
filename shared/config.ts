@@ -1,6 +1,4 @@
-// Build-time configuration (app/build.mjs fills it from REPVYN_* environment variables).
-// Only public values belong here: the Supabase anon key, Razorpay key id and VAPID public key are
-// designed to be shipped to browsers. With nothing set the app runs fully on the device.
+// App configuration: prices and support address. Only public values belong here.
 
 export interface Price { monthly: string; yearly: string; yearlyPerMonth: string }
 export interface AppConfig {

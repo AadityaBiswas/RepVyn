@@ -2,9 +2,9 @@
 //   npx tsx tests/check-programs.ts            the table
 //   npx tsx tests/check-programs.ts days       every session too
 import { REGIONS, REGION_NAMES } from "../src/engine";
-import { makePlan, planTitle } from "../app/src/model";
-import { DEFAULT_SETTINGS, append, engineState, fresh, withProfile, type Saved } from "../app/src/store";
-import { answer, asksLeft, fromPlan, nextSet, setDone, start, toEvents } from "../app/src/workout";
+import { makePlan, planTitle } from "../shared/model";
+import { DEFAULT_SETTINGS, append, engineState, fresh, withProfile, type Saved } from "../shared/store";
+import { answer, asksLeft, fromPlan, nextSet, setDone, start, toEvents } from "../shared/workout";
 
 const DAY = 86_400_000;
 const t0 = new Date(2026, 9, 5, 18).getTime();

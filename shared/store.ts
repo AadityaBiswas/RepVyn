@@ -1,6 +1,6 @@
 // Everything the app keeps: the user's settings and the engine's event log, saved in localStorage.
 // The engine state is always a replay of the log, so nothing derived is ever stored.
-import { replay, sessionCalories, type DayIntensity, type Dumbbells, type EngineEvent, type EngineState, type Equipment, type Experience, type Goal, type Profile, type Region } from "../../src/engine";
+import { replay, sessionCalories, type DayIntensity, type Dumbbells, type EngineEvent, type EngineState, type Equipment, type Experience, type Goal, type Profile, type Region } from "../src/engine";
 import { effectiveSettings } from "./entitlements";
 import { catalog, params } from "./env";
 

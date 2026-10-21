@@ -1,19 +1,20 @@
-// First-run set-up and the program hand-off, after Onboard, LevelResult and Programs in app/src/ui/pages.tsx.
+// First-run set-up and the program hand-off.
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { level } from "../../../src/engine";
-import { LEVEL_ASKS, PROGRAM_ID, PROGRAM_NAME, programValues, levelFromAnswers, nudgeWeight, programWeek, startingPoint, type LevelAsk } from "../../../app/src/model";
+import { LEVEL_ASKS, PROGRAM_ID, PROGRAM_NAME, programValues, levelFromAnswers, nudgeWeight, programWeek, startingPoint, type LevelAsk } from "../../../shared/model";
 import { useApp } from "../app";
 import { BackButton, BottomCta, Box, Cap, Card, Faint, Grid, H1, H2, Opt, Page, Sheet, Stepper, T, shadow } from "../kit";
 import { DumbbellPicker, EquipOptions } from "../pickers";
 import { Mark } from "./mark";
 import { Fig, Figures } from "../figure";
 import { Enter, FADE, POP, SWAP, UP, Press } from "../motion";
-import { catalog } from "../../../app/src/env";
+import { catalog } from "../../../shared/env";
 import { useCloud } from "../cloud";
 
-const GOALS = [["muscle", "Build muscle", "Full weekly volume"], ["general_fitness", "General fitness", "Lighter weeks"]] as const;
-const DURATIONS = [20, 30, 40, 50];
+export const GOALS = [["muscle", "Build muscle", "Full weekly volume"], ["general_fitness", "General fitness", "Lighter weeks"]] as const;
+export const DURATIONS = [20, 30, 40, 50];
+export const DAYS = [2, 3, 4, 5, 6];
 const STEPS = 5;
 export const bodyWeight = (kg: number, units: "metric" | "imperial") => (units === "metric" ? `${Math.round(kg)} kg` : `${Math.round(kg * 2.2046)} lb`);
 
@@ -66,7 +67,7 @@ export function Onboard() {
             <Enter key="1" from={FADE} ms={220}>
               <H1>Your <Faint>week</Faint></H1>
               <Box style={{ marginTop: 24 }}><Cap>Days per week</Cap>
-                <Grid cols={5}>{[2, 3, 4, 5, 6].map((d) => <Opt key={d} label={String(d)} on={st.days === d} pick={() => app.settings({ days: d })} />)}</Grid>
+                <Grid cols={5}>{DAYS.map((d) => <Opt key={d} label={String(d)} on={st.days === d} pick={() => app.settings({ days: d })} />)}</Grid>
               </Box>
               <Box style={{ marginTop: 12 }}><Cap>Workout length</Cap>
                 <Grid cols={4}>{DURATIONS.map((m) => <Opt key={m} label={`${m} min`} on={st.minutes === m} pick={() => app.settings({ minutes: m })} />)}</Grid>

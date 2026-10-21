@@ -1,8 +1,8 @@
 // What a figure shows, shared by both ways of drawing it: tinted masks (figure.tsx, the web preview) and one Skia shader
-// per figure (figure.native.tsx, the phone). The palettes and rules are app/src/figure.ts's.
+// per figure (figure.native.tsx, the phone).
 import { useWindowDimensions } from "react-native";
 import { MUSCLES, REGION_NAMES, type Muscle, type Region } from "../../src/engine";
-import { red } from "../../app/src/model";
+import { red } from "../../shared/model";
 import { FIG } from "./figures.gen";
 import type { ThemeName } from "./theme";
 

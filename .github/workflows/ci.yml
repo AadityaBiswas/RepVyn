@@ -13,7 +13,8 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
-      - run: npm run app
+      - run: npm ci && npx tsc --noEmit
+        working-directory: mobile
   functions:
     runs-on: ubuntu-latest
     steps:

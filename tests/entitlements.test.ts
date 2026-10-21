@@ -1,8 +1,8 @@
-// Free vs Pro (app/src/entitlements.ts) and market detection (app/src/config.ts).
+// Free vs Pro (shared/entitlements.ts) and market detection (shared/config.ts).
 import { describe, expect, it } from "vitest";
-import { marketFor } from "../app/src/config";
-import { access, effectiveSettings, NO_ENTITLEMENT, needsPro, offerDue, PREVIEW_DAYS } from "../app/src/entitlements";
-import { DEFAULT_SETTINGS, fresh, withProfile } from "../app/src/store";
+import { marketFor } from "../shared/config";
+import { access, effectiveSettings, NO_ENTITLEMENT, needsPro, offerDue, PREVIEW_DAYS } from "../shared/entitlements";
+import { DEFAULT_SETTINGS, fresh, withProfile } from "../shared/store";
 
 const DAY = 86_400_000;
 const T0 = Date.UTC(2026, 9, 1);

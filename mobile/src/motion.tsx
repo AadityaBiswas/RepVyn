@@ -1,4 +1,4 @@
-// In-app motion, after app/src/ui/motion.ts, on React Native's Animated.
+// In-app motion, on React Native's Animated.
 // Springs are described the way Apple describes them (damping ratio + response in seconds) and converted once here.
 // Every move is a spring that starts from the current on-screen value, so anything can be interrupted and turned round.
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -58,7 +58,6 @@ export const PULSE: From = { scale: 1.18 };
 /** A list row arriving: it slides in from the right. */
 export const ROW: From = { opacity: 0, x: 20 };
 export const NAV_ICON: From = { scale: 0.86 };
-export const NAV_LABEL: From = { opacity: 0, x: -8 };
 
 /**
  * Plays an enter move once, when it mounts (a new `key` plays it again). A spring by default; `ms` makes it an eased tween.

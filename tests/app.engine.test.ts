@@ -1,8 +1,8 @@
 // The app's use of the new engine output: chosen muscles, swaps, muscle words, calories, and dumbbells picked for one workout.
 import { describe, expect, it } from "vitest";
-import { leastTrainedLine, makePlan, planRows, planTitle } from "../app/src/model";
-import { DEFAULT_SETTINGS, caloriesWith, engineState, fresh, withProfile, type Saved } from "../app/src/store";
-import { fromPlan, setDone, start, toEvents, type Run } from "../app/src/workout";
+import { leastTrainedLine, makePlan, planRows, planTitle } from "../shared/model";
+import { DEFAULT_SETTINGS, caloriesWith, engineState, fresh, withProfile, type Saved } from "../shared/store";
+import { fromPlan, setDone, start, toEvents, type Run } from "../shared/workout";
 
 const MON = new Date(2026, 9, 5, 18).getTime();
 const user = (equipment: Saved["settings"]["equipment"] = []): Saved => {

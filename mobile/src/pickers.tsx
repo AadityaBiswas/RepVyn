@@ -1,7 +1,7 @@
-// Equipment tiles and the dumbbell picker, after app/src/ui/tabs.tsx (EquipOptions) and dumbbells.tsx.
+// Equipment tiles and the dumbbell picker.
 import { View } from "react-native";
 import { EQUIPMENT, type Equipment } from "../../src/engine";
-import type { DumbbellChoice } from "../../app/src/store";
+import type { DumbbellChoice } from "../../shared/store";
 import { Press } from "./motion";
 import { useApp } from "./app";
 import { EQUIP_NAMES, EquipAvatar, Grid, Opt, Segmented, T, tick } from "./kit";

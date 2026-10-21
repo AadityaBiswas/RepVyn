@@ -1,5 +1,5 @@
-// The anatomy figures on the phone: each figure is one Skia canvas drawn by one shader on the GPU, the way the web app paints
-// its canvas, instead of a stack of ~11 tinted image views. The shader reads the region map (mobile/scripts/make_figures.py:
+// The anatomy figures on the phone: each figure is one Skia canvas drawn by one shader on the GPU,
+// instead of a stack of ~11 tinted image views. The shader reads the region map (mobile/scripts/make_figures.py:
 // R = muscle code, +32 where the legs-only view keeps the pixel; G = coverage; B = contour-ring strength) and colours each
 // pixel from an 18-entry table built by figureCore.ts, so the rules stay the same as the web preview's.
 import { memo, useEffect, useState } from "react";

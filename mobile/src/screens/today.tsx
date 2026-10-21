@@ -1,11 +1,11 @@
-// The Today tab, after Today, HeroCard and DoneCard in app/src/ui/tabs.tsx (without the body figure for now).
+// The Today tab (without the body figure for now).
 import { useMemo } from "react";
 import { View } from "react-native";
 import { REGIONS, type Muscle, type Plan } from "../../../src/engine";
 import { Fig } from "../figure";
 import { describe } from "../figureCore";
 import { Enter, LIVELY, POP, Press } from "../motion";
-import { WORK, WORK_INK, dayStart, isLegsDay, planRegions, planValues, needsCheckin, planRows, planTitle, planWhy, programWeek, trainedToday, weekStrip } from "../../../app/src/model";
+import { WORK, WORK_INK, dayStart, isLegsDay, planRegions, planValues, needsCheckin, planRows, planTitle, planWhy, programWeek, trainedToday, weekStrip } from "../../../shared/model";
 import { useApp } from "../app";
 import { Arrow, Card, Check, Chevron, Clock, EquipStack, Faint, Grid, H1, H2, Layers, ListIcon, MuscleDot, Opt, Page, T, shadow, useFit } from "../kit";
 import { cssVar } from "../theme";

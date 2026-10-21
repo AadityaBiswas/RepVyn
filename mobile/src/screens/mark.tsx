@@ -1,4 +1,4 @@
-// The RepVyn mark, the same paths as the web app's Mark (app/src/ui/kit.tsx).
+// The RepVyn mark.
 import Svg, { G, Path, Rect } from "react-native-svg";
 
 export const Mark = ({ size = 36 }: { size?: number }) => (

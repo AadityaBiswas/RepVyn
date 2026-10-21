@@ -1,6 +1,6 @@
 // The in-workout flow as a pure state machine: work → rest → … → done. The screen calls these and ticks once a second;
 // `toEvents` turns a finished (or abandoned) run into engine events.
-import type { EngineEvent, EngineState, Plan } from "../../src/engine";
+import type { EngineEvent, EngineState, Plan } from "../src/engine";
 
 export const REST_SECONDS = 45;
 

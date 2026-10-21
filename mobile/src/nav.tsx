@@ -1,4 +1,4 @@
-// The floating tab bar, after the nav in app/src/ui/app.tsx. The chosen tab widens to show its name, the others slide
+// The floating tab bar. The chosen tab widens to show its name, the others slide
 // aside, and the dark pill glides under it. Everything that moves is a transform or an opacity, so on the phone it runs on
 // the native driver and never waits for JavaScript: tab positions are worked out from the chosen index, the icon and its
 // name slide to the tab's centre, and the touch targets (invisible) simply take their new widths.

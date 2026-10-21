@@ -1,6 +1,6 @@
 // After a workout: what RepVyn learned from it, what grew since day 1, and what was worked most. Pure, so it is tested
 // in tests/app.test.ts; the finish screens in ui/workout.tsx only lay these out.
-import { prescribe, REGIONS, REGION_NAMES, strengthTrend, type EngineState, type Region } from "../../src/engine";
+import { prescribe, REGIONS, REGION_NAMES, strengthTrend, type EngineState, type Region } from "../src/engine";
 import type { DoneSet, Run } from "./workout";
 import { weightLabel } from "./model";
 

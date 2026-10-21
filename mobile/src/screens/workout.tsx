@@ -1,18 +1,18 @@
-// The in-workout screen, after app/src/ui/workout.tsx: the current set, the rest ring, the reps-left question and a done screen.
-// The web app's recap screens (learned, growth, week, share) come in a later pass.
+// The in-workout screen: the current set, the rest ring, the reps-left question and a done screen.
+// Recap screens (learned, growth, week, share) are not ported yet.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, StyleSheet, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
 import { REGIONS } from "../../../src/engine";
-import { mostWorked, muscleName } from "../../../app/src/finish";
+import { mostWorked, muscleName } from "../../../shared/finish";
 import { Fig } from "../figure";
 import { BADGE, Enter, FIG, LIFT, LIVELY, SNAP, THROWN, TIMER, UP, spring, still, tween, useRamp, Press } from "../motion";
 
 const ACircle = Animated.createAnimatedComponent(Circle);
-import { asksLeft, current, isAllOut, kgOf, repsDone, setsTotal, toEvents, type Run } from "../../../app/src/workout";
-import { activation, primary } from "../../../app/src/model";
-import { caloriesWith } from "../../../app/src/store";
+import { asksLeft, current, isAllOut, kgOf, repsDone, setsTotal, toEvents, type Run } from "../../../shared/workout";
+import { activation, primary } from "../../../shared/model";
+import { caloriesWith } from "../../../shared/store";
 import { useApp } from "../app";
 import { Check, Close, MuscleDot, Pause, Play, T, shadow, tick, success, tap, thud, useSide } from "../kit";
 

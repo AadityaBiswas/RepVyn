@@ -1,4 +1,4 @@
-// Sign in, and the Profile "Account" section, after AccountPage and AccountSection in app/src/ui/account.tsx.
+// Sign in, and the Profile "Account" section.
 import { useState } from "react";
 import { TextInput, View } from "react-native";
 import { useApp } from "../app";

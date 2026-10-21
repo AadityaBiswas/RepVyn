@@ -1,8 +1,8 @@
 // Builds a believable saved state for looking at the app mid-program: three weeks of workouts ending on a legs day.
 //   npx tsx tests/seed-demo.ts > out/demo-state.json     then put it in localStorage under "home-v2"
-import { isLegsDay, makePlan, planRegions, planTitle } from "../app/src/model";
-import { DEFAULT_SETTINGS, append, engineState, fresh, withProfile, type Saved } from "../app/src/store";
-import { answer, asksLeft, fromPlan, nextSet, setDone, start, toEvents } from "../app/src/workout";
+import { isLegsDay, makePlan, planRegions, planTitle } from "../shared/model";
+import { DEFAULT_SETTINGS, append, engineState, fresh, withProfile, type Saved } from "../shared/store";
+import { answer, asksLeft, fromPlan, nextSet, setDone, start, toEvents } from "../shared/workout";
 
 const DAY = 86_400_000;
 

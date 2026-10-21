@@ -1,10 +1,10 @@
-// Account and sync on the phone, after app/src/cloud/index.ts: the same email-code sign-in and the same sync rules
+// Account and sync on the phone: the same email-code sign-in and the same sync rules
 // (syncCore.ts), over plain fetch to Supabase's auth and REST APIs. Pro checkout is not here yet; reminders are local (reminders.ts).
 import { useSyncExternalStore } from "react";
 import { AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { adopt, afterPush, applyPull, BATCH, isEmpty, outbox, reminderTime, type PullPage } from "../../app/src/cloud/syncCore";
-import type { Saved } from "../../app/src/store";
+import { adopt, afterPush, applyPull, BATCH, isEmpty, outbox, reminderTime, type PullPage } from "../../shared/syncCore";
+import type { Saved } from "../../shared/store";
 import appJson from "../app.json";
 
 const URL_ = process.env.EXPO_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");

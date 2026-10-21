@@ -1,7 +1,7 @@
 // The pure half of cloud sync (ADR-0003): what to upload, and how to fold in what the server sends.
 // No network or storage here, so every rule is unit-tested in tests/sync.test.ts.
-import { EventSchema, type EngineEvent } from "../../../src/engine";
-import type { Saved, SyncMeta } from "../store";
+import { EventSchema, type EngineEvent } from "../src/engine";
+import type { Saved, SyncMeta } from "./store";
 
 /** Event fields as the server stores them (the user comes from the session, not the event). */
 export interface WireEvent { id: string; ts: number; seq: number; type: string; payload: unknown; schemaVersion: number }

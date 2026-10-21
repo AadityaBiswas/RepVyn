@@ -3,7 +3,7 @@ import {
   MUSCLES, REGIONS, REGION_NAMES, REGION_PLURAL, currentLevels, leastUsedMuscles, levelName, muscleSummary, planCalories, planSession, readiness,
   scoreObservation, sessionCalories, strengthTrend, targetRir, typicalSessionLoad, weeklyNeed, weeklyTarget,
   type DayIntensity, type EngineEvent, type Experience, type EngineState, type Equipment, type Muscle, type Plan, type PlannedExercise, type Program, type Region,
-} from "../../src/engine";
+} from "../src/engine";
 
 export const H = 3_600_000;
 export const DAY = 24 * H;

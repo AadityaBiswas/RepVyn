@@ -4,7 +4,7 @@
 
 ## Platform
 
-web
+android (Expo, `mobile/`)
 
 ## Users
 People doing home workouts (bodyweight, optional bar/bands/backpack) who do not want to track recovery themselves. They should not have to work out how hard they trained yesterday or which muscles are sore. They open the app, see today's workout, and do it.
@@ -36,4 +36,4 @@ No real user data, photos, or exercise imagery exist. Exercise thumbnails must b
 3. Progress is the payoff and should be visible from the first screen.
 4. Workout quality at home comes first; chrome recedes.
 
-_Assumptions: this record was inferred from the user's brief and the v1 canvas, then approved by the user as a design outline in chat. Platform is mobile web (design canvas), not native._
+_Platform changed to the native phone app on 21 Oct 2026; the web app was removed._

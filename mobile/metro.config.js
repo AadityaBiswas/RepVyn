@@ -1,4 +1,4 @@
-// The app imports the shared engine and screen logic from the repo root (../src, ../app/src, ../catalog, ../params).
+// The app imports the shared engine and screen logic from the repo root (../src, ../shared, ../catalog, ../params).
 // Real paths, so a build run from a short mapped drive (subst R:, for Windows' path limit) resolves the same files.
 const fs = require("fs");
 const path = require("path");
