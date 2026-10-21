@@ -30,7 +30,7 @@ export function scheduleReminders(remind: string, trainedToday: boolean, now = D
       const at = new Date(addDays(now, i)).setHours(h, m); // setHours, not added ms, so DST days keep the time
       if (at <= now) continue;
       await Notifications.scheduleNotificationAsync({
-        content: { title: "RepVyn", body: BODY },
+        content: { title: "RepVyn", body: BODY, sound: "default" },
         trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: at, channelId: "reminders" },
       });
     }
