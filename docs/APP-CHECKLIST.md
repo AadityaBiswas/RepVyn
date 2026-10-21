@@ -7,8 +7,10 @@ Details and reasons are in `docs/MOBILE-LAUNCH-PLAN.md`. Recap screens have thei
 - [ ] Decide how Pro is sold: launch free (recommended) or Google Play Billing — *your call*
 - [ ] Fill the `[BRACKETED]` gaps in `legal/privacy.html` and `legal/terms.html` — *yours, ideally checked by a lawyer or CA*
 - [ ] Host the privacy policy and terms at a public link
-- [ ] Privacy and Terms rows in Profile that open those links
-- [ ] Version code in `mobile/app.json`, upload signing key, signed release build (AAB)
+- [x] Privacy and Terms rows in Profile → About (they appear once `EXPO_PUBLIC_LEGAL_URL` in `mobile/.env` points at the hosted `legal/` folder), plus Contact support and Version
+- [x] Version code in `mobile/app.json` (raise it by 1 for every Play upload), upload key, release signing (`mobile/plugins/release-signing.js`)
+- [ ] Signed release build (AAB) — building
+- [ ] **Back up the upload key**: `C:\Users\biswa\.repvyn-keys\repvyn-upload.jks` and the `REPVYN_UPLOAD_*` lines in `C:\Users\biswa\.gradle\gradle.properties`, to a password manager or cloud drive — *yours*
 - [ ] Google Play Console: app listing, screenshots, data-safety form, content rating — *yours*
 - [ ] Full test pass on a real phone (checklist in the launch plan, section 5)
 

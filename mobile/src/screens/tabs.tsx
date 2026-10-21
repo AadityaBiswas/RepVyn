@@ -1,6 +1,6 @@
 // The Body, Progress and Profile tabs (without the body figures for now).
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { Animated, PanResponder, ScrollView, View } from "react-native";
+import { Animated, Linking, PanResponder, ScrollView, View } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import { REGIONS, REGION_NAMES, ownedWeights } from "../../../src/engine";
 import {
@@ -16,6 +16,8 @@ import { Enter, Later, POP, Press, SMOOTH, SNAP, THROWN, project, still } from "
 import { DAYS, DURATIONS, GOALS, bodyWeight } from "./onboard";
 import { DumbbellPicker, EquipOptions, equipLabel } from "../pickers";
 import { AccountSection } from "./account";
+import { config } from "../../../shared/config";
+import appJson from "../../app.json";
 
 /** Reminder times; "Off" is its own pill. */
 const REMINDERS = ["6:30 am", "12:30 pm", "6:30 pm", "9:00 pm"];
@@ -429,6 +431,31 @@ export function Profile() {
       </Section>
 
       <AccountSection />
+
+      <Section title="About">
+        <Card style={{ paddingHorizontal: 20 }}>
+          {LEGAL && <LinkRow label="Privacy policy" url={`${LEGAL}/privacy.html`} />}
+          {LEGAL && <LinkRow label="Terms" url={`${LEGAL}/terms.html`} />}
+          <LinkRow label="Contact support" url={`mailto:${config.supportEmail}`} />
+          <View style={{ minHeight: 60, flexDirection: "row", alignItems: "center" }}>
+            <T w={600} size={16} style={{ flexGrow: 1 }}>Version</T>
+            <T size={16} color={c.muted}>{appJson.expo.version}</T>
+          </View>
+        </Card>
+      </Section>
     </Page>
+  );
+}
+
+/** Where legal/ is hosted (privacy.html, terms.html). The rows stay hidden until it is set in mobile/.env. */
+const LEGAL = process.env.EXPO_PUBLIC_LEGAL_URL?.replace(/\/$/, "");
+
+function LinkRow({ label, url }: { label: string; url: string }) {
+  const { c } = useApp();
+  return (
+    <Press onPress={() => { tap(); void Linking.openURL(url).catch(() => {}); }} accessibilityRole="link" style={{ minHeight: 60, flexDirection: "row", alignItems: "center", gap: 8, borderBottomWidth: 1, borderBottomColor: c.soft }}>
+      <T w={600} size={16} style={{ flexGrow: 1 }}>{label}</T>
+      <Chevron color={c.faint} />
+    </Press>
   );
 }
