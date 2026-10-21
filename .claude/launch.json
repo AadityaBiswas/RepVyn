@@ -2,18 +2,6 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "demo",
-      "runtimeExecutable": "python",
-      "runtimeArgs": [
-        "-m",
-        "http.server",
-        "8765",
-        "--directory",
-        "demo/dist"
-      ],
-      "port": 8765
-    },
-    {
       "name": "v2-preview",
       "runtimeExecutable": "python",
       "runtimeArgs": [
@@ -26,21 +14,20 @@
       "port": 8766
     },
     {
-      "name": "app",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "app",
-        "--",
-        "--serve"
-      ],
-      "port": 5173
-    },
-    {
       "name": "mobile-web",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "mobile", "run", "web", "--", "--port", "8082"],
-      "env": { "CI": "1" },
+      "runtimeArgs": [
+        "--prefix",
+        "mobile",
+        "run",
+        "web",
+        "--",
+        "--port",
+        "8082"
+      ],
+      "env": {
+        "CI": "1"
+      },
       "port": 8082
     }
   ]

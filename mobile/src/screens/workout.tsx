@@ -1,7 +1,7 @@
 // The in-workout screen: the current set, the rest ring, the reps-left question and a done screen.
-// Recap screens (learned, growth, week, share) are not ported yet.
+// After it, the recap screens in recap.tsx.
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, Easing, StyleSheet, View, useWindowDimensions } from "react-native";
+import { Animated, BackHandler, Easing, StyleSheet, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
 import { REGIONS } from "../../../src/engine";
@@ -14,6 +14,7 @@ import { asksLeft, current, isAllOut, kgOf, repsDone, setsTotal, toEvents, type 
 import { activation, primary } from "../../../shared/model";
 import { caloriesWith } from "../../../shared/store";
 import { useApp } from "../app";
+import { Growth, Learned, ShareSheet, WeekMoment, useRecap } from "./recap";
 import { Check, Close, MuscleDot, Pause, Play, T, shadow, tick, success, tap, thud, useSide } from "../kit";
 
 const clock = (t: number) => `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
@@ -196,6 +197,25 @@ function Finished({ run }: { run: Run }) {
   const trained = useMemo(() => Object.fromEntries(REGIONS.filter((m) => run.done.some((d) => app.s.catalog.byId[d.exerciseId]?.contributions[m] === 1)).map((m) => [m, 1])), []);
   // The contour lines mark the muscle worked most today.
   const most = useMemo(() => mostWorked(app.s, run).lines, []);
+  const recap = useRecap(run);
+  const [step, setStep] = useState<"done" | "learned" | "growth" | "week">("done");
+  const [sharing, setSharing] = useState(false);
+  const growthNext = recap.grew.length > 0;
+  const week = recap.week;
+  // Android Back steps back through the recap (this listener runs before the app's, which would close the workout).
+  const back = useRef<() => boolean>(() => false);
+  back.current = () => {
+    if (sharing) setSharing(false);
+    else if (step === "week") setStep(growthNext ? "growth" : "learned");
+    else if (step === "growth") setStep("learned");
+    else if (step === "learned") setStep("done");
+    else return false;
+    return true;
+  };
+  useEffect(() => {
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => back.current());
+    return () => sub.remove();
+  }, []);
   const k = useRamp(1100, 950);
   const ease = 1 - Math.pow(1 - k, 3);
   const flood = useRef(new Animated.Value(still() ? 1 : 0)).current;
@@ -234,8 +254,12 @@ function Finished({ run }: { run: Run }) {
           </Enter>
         )}
         <View style={{ flex: 1, minHeight: 12 }} />
-        <Enter from={UP} delay={2500}><Big onPress={app.finishWorkout} bg={c.onAccent} fg={c.hero}>Done</Big></Enter>
+        <Enter from={UP} delay={2500}><Big onPress={() => setStep("learned")} bg={c.onAccent} fg={c.hero}>Next</Big></Enter>
       </View>
+      {step !== "done" && <Learned recap={recap} share={() => setSharing(true)} next={() => (growthNext ? setStep("growth") : week ? setStep("week") : app.finishWorkout())} last={!growthNext && !week} />}
+      {(step === "growth" || (step === "week" && growthNext)) && <Growth recap={recap} share={() => setSharing(true)} next={() => (week ? setStep("week") : app.finishWorkout())} last={!week} />}
+      {step === "week" && week && <WeekMoment week={week} share={() => setSharing(true)} done={app.finishWorkout} />}
+      {sharing && <ShareSheet recap={recap} close={() => setSharing(false)} />}
     </View>
   );
 }
