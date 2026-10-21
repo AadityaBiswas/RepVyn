@@ -2,27 +2,27 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { ownedWeights, type EngineState, type Plan, type Region } from "../../../src/engine";
 import { attach, enablePush, requestSync } from "../cloud";
-import { stampDoc } from "../cloud/syncCore";
+import { isEmpty, outbox, stampDoc } from "../cloud/syncCore";
 import { track } from "../cloud/telemetry";
-import { allowedEquipment, needsPro, offerDue, programAllowed } from "../entitlements";
-import { makePlan, type PlanChoice } from "../model";
+import { allowedEquipment, needsPro, offerDue } from "../entitlements";
+import { makePlan, PROGRAM_ID, type LevelAsk, type PlanChoice } from "../model";
 import { append, engineState, load, save, setFeedback, withProfile, type Saved, type Settings } from "../store";
 import { AccountPage, ProPage, useAccess } from "./account";
 import * as W from "../workout";
-import { Onboard, Programs, Setup, Sore } from "./pages";
+import { Done, Onboard, Programs, Setup, Sore } from "./pages";
 import { Body, Profile, Progress, Today } from "./tabs";
 import { navIcon, navLabel, tick, useMove, useShiftInto, useThumb } from "./motion";
 import { Workout } from "./workout";
 
 type Tab = "today" | "body" | "progress" | "profile";
-type Page = null | "setup" | "programs" | "onboard" | "sore" | "account" | "pro";
+type Page = null | "setup" | "done" | "programs" | "onboard" | "sore" | "account" | "pro";
 type Feel = "fresh" | "normal" | "beat_up";
 export interface Ui {
   tab: Tab;
   page: Page;
   /** How the pushed page is animating; "first" = the first-run picker with no page under it. */
   move: null | "in" | "out" | "fwd" | "first";
-  open: null | "duration" | "intensity" | "equip" | "focus";
+  open: null | "duration" | "intensity" | "equip";
   edit: string | null;
   ob: number;
   row: string | null;
@@ -34,6 +34,10 @@ export interface Ui {
   sore: Region[];
   choice: PlanChoice;
   planAt: number;
+  /** The day the finished-workout page shows (local midnight). */
+  day: number;
+  /** Onboarding level answers: the index of the tile picked per question. */
+  lv: Partial<Record<LevelAsk, number>>;
 }
 
 export interface App {
@@ -54,6 +58,8 @@ export interface App {
   checkin: (sore: Region[]) => void;
   openSore: () => void;
   openSetup: () => void;
+  /** A finished workout: every set logged that day. */
+  openDone: (day: number) => void;
   openPrograms: () => void;
   openAccount: () => void;
   openPro: () => void;
@@ -89,7 +95,7 @@ export function AppRoot() {
   const [ui, setUi] = useState<Ui>(() => ({
     tab: "today", page: saved.onboarded ? null : "onboard", move: saved.onboarded ? null : "first", open: null, edit: null, ob: 0, row: null,
     pick: saved.settings.programId, sheet: null, run: null, justFinished: false, feel: null, sore: [],
-    choice: { minutes: saved.settings.minutes, intensity: "normal", equipment: saved.settings.equipment }, planAt: Date.now(),
+    choice: { minutes: saved.settings.minutes, intensity: "normal", equipment: saved.settings.equipment }, planAt: Date.now(), day: 0, lv: {},
   }));
   const [dark, setDark] = useState(systemDark);
   const timer = useRef<ReturnType<typeof setTimeout>>();
@@ -115,7 +121,8 @@ export function AppRoot() {
     latest.current = y;
     save(y);
     setSaved(y);
-    requestSync();
+    // Only for something to upload: a sync's own bookkeeping must not schedule the next one.
+    if (!isEmpty(outbox(y))) requestSync();
   };
   useEffect(() => attach(() => latest.current, commit), []);
   useEffect(() => track("app_opened", { onboarded: saved.onboarded }), []);
@@ -188,20 +195,21 @@ export function AppRoot() {
     },
     openSore: () => push("sore", { sore: [] }),
     openSetup: () => push("setup", { row: null, planAt: Date.now(), choice: { minutes: st.minutes, intensity: "normal", equipment: st.equipment } }),
-    openPrograms: () => push("programs", { pick: st.programId, edit: null }),
+    openDone: (day) => push("done", { day }),
+    openPrograms: () => push("programs", { pick: PROGRAM_ID, edit: null }),
     openAccount: () => push("account", { edit: null }),
     openPro: () => { track("paywall_viewed", { reason: acc.reason }); push("pro", { edit: null }); },
     signedIn: () => leave("out"),
     back: () => leave("out"),
     startProgram: () => {
       const first = ui.move === "first";
-      if (!first && !programAllowed(ui.pick, full)) return push("pro");
-      const changed = ui.pick !== st.programId;
-      commit((x) => withProfile({ ...x, onboarded: true, programStart: first || changed || x.programStart === null ? Date.now() : x.programStart, settings: { ...x.settings, programId: ui.pick } }, Date.now(), full));
-      if (first) track("onboarding_done", { program: ui.pick, days: st.days, minutes: st.minutes });
+      // One program for now, so this starts it on first run and otherwise only closes the page.
+      const changed = PROGRAM_ID !== st.programId;
+      commit((x) => withProfile({ ...x, onboarded: true, programStart: first || changed || x.programStart === null ? Date.now() : x.programStart, settings: { ...x.settings, programId: PROGRAM_ID } }, Date.now(), full));
+      if (first) track("onboarding_done", { program: PROGRAM_ID, days: st.days, minutes: st.minutes, level: st.level });
       leave(first ? "fwd" : "out", { tab: "today" });
     },
-    finishOnboarding: () => set({ page: "programs", move: "first", pick: st.programId }),
+    finishOnboarding: () => set({ page: "programs", move: "first", pick: PROGRAM_ID }),
     startWorkout: () => {
       if (setupPlan.kind !== "workout") return;
       set({ sheet: "in", run: W.start(W.fromPlan(s, setupPlan), Date.now()) });
@@ -273,6 +281,7 @@ export function AppRoot() {
         {hasProfile && ui.tab === "profile" && <Profile key="profile" app={app} />}
       </div>
       {ui.page === "setup" && <Setup app={app} cls={pageCls("setup")} />}
+      {ui.page === "done" && <Done app={app} cls={pageCls("done")} />}
       {ui.page === "sore" && <Sore app={app} cls={pageCls("sore")} />}
       {ui.page === "programs" && <Programs app={app} cls={ui.move === "first" ? "pane" : pageCls("programs")} first={ui.move === "first" || ui.move === "fwd"} />}
       {ui.page === "onboard" && <Onboard app={app} />}

@@ -13,7 +13,7 @@ Until a step is done the app keeps working: with no backend configured it runs f
 2. Install the CLI: `npx supabase login`, then `npx supabase link --project-ref <ref>`.
 3. Apply the schema: `npx supabase db push` (runs `supabase/migrations`).
 4. Auth → Providers → Email: on; "Confirm email" off (the 6-digit code confirms it). Auth → Email templates → Magic Link: make the body show the code, for example `Your RepVyn code is {{ .Token }}`. Do the same for "Confirm signup".
-5. Auth → SMTP: add a sender (Resend or Postmark, from an address on your domain). Supabase's built-in sender is limited to a few emails an hour.
+5. Auth → SMTP: add a sender (Resend or Postmark, from an address on your domain). Supabase's built-in sender is limited to a few emails an hour, and on the free plan the email templates cannot be changed until a custom sender is set. Once it is, `npx supabase config push` applies the code email from `supabase/config.toml` (`supabase/templates/code.html`), which replaces the manual template edit in step 4.
 6. Auth → URL configuration: Site URL `https://<your domain>`.
 7. Copy Project URL and the **anon** key (Settings → API) for step 5.
 

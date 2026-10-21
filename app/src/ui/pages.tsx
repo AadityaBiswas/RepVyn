@@ -1,14 +1,14 @@
-// Pages pushed over the tabs: the workout page, the soreness list, the program picker and first-run set-up.
-import { REGIONS, REGION_NAMES } from "../../../src/engine";
+// Pages pushed over the tabs: the workout page, a finished workout, the soreness list, the program and first-run set-up.
+import { REGIONS, REGION_NAMES, level } from "../../../src/engine";
 import { catalog } from "../env";
-import { FOCUS_GROUPS, isLegsDay, leastTrainedLine, nudgeWeight, planActivation, planRegions, planRows, planTitle, programMeters, programValues, regionWords } from "../model";
+import { CORE, LEVEL_ASKS, PROGRAM_ID, PROGRAM_NAME, UPPER, dayStart, doneDay, isLegsDay, levelFromAnswers, nudgeWeight, planActivation, planRegions, planRows, planTitle, programValues, programWeek, regionWords, startingPoint, type LevelAsk } from "../model";
 import type { App } from "./app";
-import { badgeIn, fade, pop, pulse, rollDown, rollUp, rowIn, rowOut, swap, tick, useMove, usePresence } from "./motion";
+import { badgeIn, fade, fFig, fUp, pop, pulse, rollDown, rollUp, rowIn, rowOut, swap, tick, useMove, usePresence } from "./motion";
 import { Clock, EquipInline, EquipStack, IntensityIcon } from "./icons";
 import type { ComponentChildren } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { DumbbellPicker } from "./dumbbells";
-import { BackButton, BottomCta, Faint, Roll, Fig, Figures, H1, Mark, Muscle, Opt, OptGrid, Scroll, Seg, Segmented, Stepper, ThumbDown, ThumbUp } from "./kit";
+import { BackButton, BottomCta, Faint, Roll, Fig, Figures, H1, Mark, Muscle, Opt, OptGrid, Scroll, Section, Seg, Segmented, Stepper, ThumbDown, ThumbUp } from "./kit";
 import { bodyWeight, equipLabel, EquipOptions } from "./tabs";
 
 const DURATIONS = [20, 30, 40, 50];
@@ -24,12 +24,12 @@ export function Setup({ app, cls }: { app: App; cls: string }) {
   const was = useRef(c);
   const dir = (a: number, b: number) => (a >= b ? rollUp : rollDown);
   const LEVEL = { easy: 0, normal: 1, hard: 2 } as const;
-  const chip = (key: "duration" | "intensity" | "equip" | "focus", label: string, icon: ComponentChildren, value: ComponentChildren, enter: (el: HTMLElement | null) => void) => {
+  const chip = (key: "duration" | "intensity" | "equip", label: string, icon: ComponentChildren, value: ComponentChildren, enter: (el: HTMLElement | null) => void) => {
     const on = ui.open === key;
     // Time and intensity share the row; the equipment chip is exactly as wide as its avatars.
     const fit = key === "equip";
     return (
-      <button type="button" class="tab" onClick={() => app.set({ open: on ? null : key })} aria-expanded={on ? "true" : "false"} aria-label={`${key === "duration" ? "Duration" : key === "intensity" ? "Intensity" : key === "equip" ? "Equipment" : "Muscles to train"}: ${label}`}
+      <button type="button" class="tab" onClick={() => app.set({ open: on ? null : key })} aria-expanded={on ? "true" : "false"} aria-label={`${key === "duration" ? "Duration" : key === "intensity" ? "Intensity" : "Equipment"}: ${label}`}
         style={`${fit ? "flex: 0 0 auto; padding: 0 8px 0 9px;" : "flex: 1 1 0; padding: 0 8px 0 10px;"} min-width: 0; height: 48px; border: 0; border-radius: 999px; cursor: pointer; background: ${on ? "var(--ink)" : "var(--surface)"}; color: ${on ? "var(--bg)" : "var(--ink)"}; display: flex; align-items: center; justify-content: space-between; gap: 5px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap;`}>
         <span style="display: flex; align-items: center; gap: 5px; min-width: 0;">
           {icon}
@@ -45,10 +45,6 @@ export function Setup({ app, cls }: { app: App; cls: string }) {
   const legs = isLegsDay(regions);
   const [words] = regionWords(regions);
   const rows = planRows(s, plan, app.saved.settings.units);
-  const focus = c.focus ?? [];
-  const focusWords = regionWords(focus)[0];
-  const focusLabel = focus.length ? focusWords[0]!.toUpperCase() + focusWords.slice(1) : "Any muscle";
-  const hint = leastTrainedLine(s, app.now);
   const list = usePresence(plan.kind === "workout" ? rows : [], (r) => r.id);
   const count = rows.length;
   // Rows arriving together land one after another.
@@ -91,9 +87,6 @@ export function Setup({ app, cls }: { app: App; cls: string }) {
           {chip("intensity", INTENSITY.find((i) => i[0] === c.intensity)![1], <IntensityIcon level={c.intensity} size={18} />, INTENSITY.find((i) => i[0] === c.intensity)![1], dir(LEVEL[c.intensity], LEVEL[prev.intensity]))}
           {chip("equip", equipLabel(c.equipment), <EquipStack items={c.equipment} size={30} max={3} body ring={ui.open === "equip" ? "var(--ink)" : "var(--surface)"} />, null, dir(c.equipment.length, prev.equipment.length))}
         </div>
-        <div style="margin-top: 8px; display: flex;">
-          {chip("focus", focusLabel, <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0;"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3.5"></circle></svg>, focusLabel, rollUp)}
-        </div>
         {ui.open === "duration" && (
           <div ref={pop} role="group" aria-label="Duration" style={panel}>
             <span style="font-size: 13px; font-weight: 600; color: var(--muted);">Duration</span>
@@ -110,20 +103,6 @@ export function Setup({ app, cls }: { app: App; cls: string }) {
           <div ref={pop} role="group" aria-label="Equipment" style={panel}>
             <span style="font-size: 13px; font-weight: 600; color: var(--muted);">Equipment</span>
             <EquipOptions value={c.equipment} set={(equipment) => app.choose({ equipment })} />
-          </div>
-        )}
-
-        {ui.open === "focus" && (
-          <div ref={pop} role="group" aria-label="Muscles to train" style={panel}>
-            <span style="font-size: 13px; font-weight: 600; color: var(--muted);">Muscles to train</span>
-            {hint && <span style="font-size: 15px; line-height: 1.4; color: var(--muted);">{hint}</span>}
-            <OptGrid cols={2} label="Muscles to train">
-              <Opt label="Any muscle" on={!focus.length} pick={() => app.choose({ focus: [] })} span="1 / -1" />
-              {FOCUS_GROUPS.map(([name, ms]) => {
-                const on = ms.every((m) => focus.includes(m));
-                return <Opt key={name} label={name} on={on} pick={() => app.choose({ focus: on ? focus.filter((m) => !ms.includes(m)) : [...focus, ...ms.filter((m) => !focus.includes(m))] })} />;
-              })}
-            </OptGrid>
           </div>
         )}
 
@@ -206,46 +185,96 @@ export function Sore({ app, cls }: { app: App; cls: string }) {
   );
 }
 
-// ---------- program picker ----------
+// ---------- the program ----------
 
-const TAB_NAMES: Record<string, string> = { balanced: "Balanced", upper_body: "Upper body", legs_glutes: "Legs" };
-
+/** One program for now. On first run this is the hand-off into it; later it is a look at where you are in it. */
 export function Programs({ app, cls, first }: { app: App; cls: string; first: boolean }) {
-  const { ui, saved, theme } = app;
-  const sel = catalog.programs.find((p) => p.id === ui.pick) ?? catalog.programs[0]!;
-  const tab = TAB_NAMES[sel.id] ?? sel.name;
-  const cta = first ? `Start ${tab}` : sel.id === saved.settings.programId ? `Keep ${tab}` : `Switch to ${tab}`;
-  const values = programValues(sel);
-  const most = sel.id === "balanced" ? "the whole body evenly" : regionWords(REGIONS.filter((m) => (sel.emphasis[m] ?? 1) > 1.05))[0];
+  const { saved, theme, now } = app;
+  const st = saved.settings;
+  const sel = catalog.programs.find((p) => p.id === PROGRAM_ID) ?? catalog.programs[0]!;
+  const week = first ? 0 : programWeek(saved.programStart, now) - 1;
+  const lvl = level(app.s).experience;
   return (
-    <div class={cls} ref={useMove(cls)} role="dialog" aria-label="Choose a program" style="position: absolute; inset: 0; z-index: 6; background: var(--bg);">
+    <div class={cls} ref={useMove(cls)} role="dialog" aria-label={PROGRAM_NAME} style="position: absolute; inset: 0; z-index: 6; background: var(--bg);">
       <Scroll top={first ? "var(--top)" : "calc(var(--top) + 64px)"} bottom={132}>
-        <H1>Choose your <Faint>program</Faint></H1>
-        <div style="margin-top: 22px;">
-          <Segmented bg="var(--surface)" label="Programs">
-            {catalog.programs.map((p) => <Seg key={p.id} label={TAB_NAMES[p.id] ?? p.name} on={ui.pick === p.id} pick={() => app.set({ pick: p.id })} h={44} size={15} />)}
-          </Segmented>
-        </div>
-        <section aria-label="Selected program" style="margin-top: 12px; border-radius: 32px; background: var(--surface); padding: 20px 20px 22px; display: flex; flex-direction: column; box-shadow: var(--card-shadow);">
-          <Figures key={sel.id} enter={swap} values={values} theme={theme} h={232} gap={4}
-            alt={[`Front of the body, darker red where this program trains most: ${most}.`, `Back of the body, darker red where this program trains most: ${most}.`]} />
-          <h2 style="margin: 14px 0 0; font-size: 30px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em;">{sel.name}</h2>
-          <p style="margin: 6px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted); text-wrap: pretty;">{sel.description ?? ""}</p>
-          <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--soft); display: flex; flex-direction: column; gap: 12px;">
-            {programMeters(sel).map((m) => (
-              <div key={m.label} style="display: flex; align-items: center; gap: 12px;">
-                <span style="width: 92px; flex-shrink: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">{m.label}</span>
-                <span role="meter" aria-label={`${m.label} emphasis`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(m.frac * 100)} style="flex: 1 1 0; height: 8px; border-radius: 999px; background: var(--track); overflow: hidden;">
-                  <span class="fill" style={`display: block; height: 8px; border-radius: 999px; background-color: ${m.color}; transform: scaleX(${m.frac.toFixed(3)}); transition-duration: 600ms, 400ms;`}></span>
-                </span>
-                <span style="width: 84px; flex-shrink: 0; text-align: right; font-size: 13px; color: var(--muted);">{m.word}</span>
-              </div>
-            ))}
+        {first ? <H1>You're starting<br /><Faint>the 12-week program</Faint></H1> : <H1>Your <Faint>program</Faint></H1>}
+        <section aria-label={PROGRAM_NAME} style="margin-top: 22px; border-radius: 32px; background: var(--surface); padding: 20px 20px 22px; display: flex; flex-direction: column; box-shadow: var(--card-shadow);">
+          <Figures values={programValues(sel)} theme={theme} h={232} gap={4}
+            alt={["Front of the body, every muscle in the same red: the whole body trained evenly.", "Back of the body, every muscle in the same red: the whole body trained evenly."]} />
+          <h2 style="margin: 14px 0 0; font-size: 30px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em;">{PROGRAM_NAME}</h2>
+          <p style="margin: 6px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted); text-wrap: pretty;">
+            Every muscle, {st.days} days a week, set for {/^[aeiou]/.test(lvl) ? "an" : "a"} {lvl}. Each workout is built from what's ready that day.
+          </p>
+          <div role="progressbar" aria-label="Weeks completed" aria-valuemin={0} aria-valuemax={12} aria-valuenow={week} style="margin-top: 18px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px;">
+            {Array.from({ length: 12 }, (_, i) => <span key={i} style={`height: 6px; border-radius: 999px; background: ${i < week ? "var(--ink)" : i === week ? "var(--accent)" : "var(--track)"};`}></span>)}
           </div>
+          <div style="margin-top: 8px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--muted);"><span>{first ? "Starts today" : `Week ${week + 1}`}</span><span>Week 12</span></div>
         </section>
+        <p style="margin: 20px 4px 0; display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 1.35; color: var(--muted);">
+          <span style="flex-shrink: 0; padding: 4px 9px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 12px; font-weight: 700; letter-spacing: 0.01em;">Soon</span>
+          More programs are on the way.
+        </p>
       </Scroll>
       {!first && <BackButton onClick={app.back} />}
-      <BottomCta onClick={app.startProgram}>{cta}</BottomCta>
+      <BottomCta onClick={first ? app.startProgram : app.back}>{first ? "Start the 12-week program" : "Done"}</BottomCta>
+    </div>
+  );
+}
+
+// ---------- a finished workout ----------
+
+const dayName = (day: number, now: number) =>
+  day === dayStart(now) ? "Today" : new Date(day).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "short" });
+
+/** The workout as it was done: what was trained, and every set of every exercise. */
+export function Done({ app, cls }: { app: App; cls: string }) {
+  const { s, ui, saved, theme, now } = app;
+  const d = doneDay(s, saved.events, ui.day, saved.settings.units);
+  const regions = d?.regions ?? [];
+  const legs = isLegsDay(regions);
+  const [words] = regionWords(regions);
+  const title = !regions.length ? "Workout" : legs ? "Legs" : regions.every((m) => UPPER.includes(m) || CORE.includes(m)) ? "Upper body" : "Full body";
+  const stats: [string, string][] = d ? [[`${d.minutes}`, "min"], [`${d.sets}`, d.sets === 1 ? "set" : "sets"], [`${d.reps}`, "reps"], ...(d.kcal !== null ? [[`${d.kcal}`, "kcal"] as [string, string]] : [])] : [];
+  return (
+    <div class={cls} ref={useMove(cls)} role="dialog" aria-label="Finished workout" style="position: absolute; inset: 0; z-index: 5; background: var(--bg);">
+      <Scroll top="calc(var(--top) + 64px)" bottom={150}>
+        <span style="display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; color: var(--muted);">{dayName(ui.day, now)}</span>
+        <H1>{title} <Faint>done</Faint></H1>
+        {words && <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted);">{words[0]?.toUpperCase()}{words.slice(1)}</p>}
+        <div style="margin-top: 16px;">
+          <Figures kind="level" values={Object.fromEntries(regions.map((m) => [m, 1]))} theme={theme} h={legs ? 280 : 310} part={legs ? "legs" : "all"} gap={legs ? 8 : 0}
+            alt={[`Front of the body with ${words || "nothing"} highlighted.`, `Back of the body with ${words || "nothing"} highlighted.`]} />
+        </div>
+        <ul aria-label="Totals" style={`margin: 20px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(${stats.length || 1}, minmax(0, 1fr)); gap: 8px;`}>
+          {stats.map(([v, l]) => (
+            <li key={l} style="height: 72px; border-radius: 22px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+              <span style="font-size: 24px; line-height: 1; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums;">{v}</span>
+              <span style="font-size: 13px; font-weight: 600; color: var(--muted);">{l}</span>
+            </li>
+          ))}
+        </ul>
+        {d && (
+          <section style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
+            <h2 style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">{d.exercises.length} exercise{d.exercises.length === 1 ? "" : "s"}</h2>
+            <ol style="margin: 0; padding: 0 16px; list-style: none; background: var(--surface); border-radius: 24px; display: flex; flex-direction: column;">
+              {d.exercises.map((x, i) => (
+                <li key={x.id} style={`min-height: 80px; padding: 12px 0; box-sizing: border-box; display: flex; align-items: center; gap: 14px; border-top: 1px solid ${i === 0 ? "transparent" : "var(--soft)"};`}>
+                  <Muscle region={x.region} theme={theme} />
+                  <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+                    <span style="font-size: 17px; line-height: 1.2; font-weight: 700; letter-spacing: -0.015em;">{x.name}</span>
+                    <span aria-label={`Sets: ${x.sets.join(", ")}`} style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      {x.sets.map((r, j) => <span key={j} style="min-width: 28px; height: 26px; padding: 0 8px; box-sizing: border-box; border-radius: 999px; background: var(--bg); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;">{r}</span>)}
+                    </span>
+                  </span>
+                  <span style="flex-shrink: 0; font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap;">{x.total}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+      </Scroll>
+      <BackButton onClick={app.back} label="Back to home" />
+      <BottomCta onClick={app.back}>Done</BottomCta>
     </div>
   );
 }
@@ -253,14 +282,23 @@ export function Programs({ app, cls, first }: { app: App; cls: string; first: bo
 // ---------- first-run set-up ----------
 
 const GOALS = [["muscle", "Build muscle", "Full weekly volume"], ["general_fitness", "General fitness", "Lighter weeks"]] as const;
+const STEPS = 5;
 
 export function Onboard({ app }: { app: App }) {
   const { ui, saved } = app;
   const st = saved.settings;
-  // ui.ob 0 is the welcome; 1..4 are the four questions.
+  // ui.ob 0 is the welcome; 1..5 are the questions; 6 is the starting level the answers give.
   const step = ui.ob - 1;
   const box = "padding: 16px; background: var(--surface); border-radius: 24px; display: flex; flex-direction: column; gap: 12px;";
   const cap = (t: string) => <span style="font-size: 13px; font-weight: 600; color: var(--muted);">{t}</span>;
+  const answer = (k: LevelAsk, i: number) => {
+    const lv = { ...ui.lv, [k]: i };
+    app.set({ lv });
+    const est = levelFromAnswers(app.s, lv);
+    app.settings({ level: est ? est.experience : "auto" });
+  };
+  const est = levelFromAnswers(app.s, ui.lv);
+  const result = step === STEPS;
   return (
     <div role="dialog" aria-label="Set up" style="position: absolute; inset: 0; z-index: 7; background: var(--bg);">
       {step < 0 && (
@@ -309,6 +347,18 @@ export function Onboard({ app }: { app: App }) {
         )}
         {step === 3 && (
           <div key="3" ref={fade} style="display: flex; flex-direction: column;">
+            <H1>Your <Faint>level</Faint></H1>
+            <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted);">Your best guess is fine. RepVyn checks it against your first sets.</p>
+            {(Object.keys(LEVEL_ASKS) as LevelAsk[]).map((k, n) => (
+              <div key={k} style={`margin-top: ${n ? 12 : 20}px; ${box}`}>
+                <span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 17px; font-weight: 700; letter-spacing: -0.015em;">{LEVEL_ASKS[k].label}</span><span style="font-size: 13px; color: var(--muted);">{LEVEL_ASKS[k].note}</span></span>
+                <OptGrid cols={2} label={LEVEL_ASKS[k].label}>{LEVEL_ASKS[k].answers.map(([l], i) => <Opt key={l} label={l} on={ui.lv[k] === i} pick={() => answer(k, i)} />)}</OptGrid>
+              </div>
+            ))}
+          </div>
+        )}
+        {step === 4 && (
+          <div key="4" ref={fade} style="display: flex; flex-direction: column;">
             <H1>About <Faint>you</Faint></H1>
             <div style={`margin-top: 24px; ${box}`}>{cap("Units")}
               <OptGrid cols={2} label="Units">{(["metric", "imperial"] as const).map((u) => <Opt key={u} label={u === "metric" ? "kg" : "lb"} on={st.units === u} pick={() => app.settings({ units: u })} />)}</OptGrid>
@@ -320,12 +370,52 @@ export function Onboard({ app }: { app: App }) {
             </div>
           </div>
         )}
+        {result && <LevelResult app={app} score={est?.score ?? null} />}
       </Scroll>}
       {step > 0 && <BackButton onClick={() => app.set({ ob: ui.ob - 1 })} />}
-      {step >= 0 && <div role="progressbar" aria-label="Set-up steps" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step + 1} style={`position: absolute; z-index: 3; top: calc(var(--top) + 21px); left: ${step > 0 ? 84 : 20}px; right: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; transition: left 280ms cubic-bezier(0.23,1,0.32,1);`}>
-        {[0, 1, 2, 3].map((i) => <span key={i} style={`height: 6px; border-radius: 999px; background: ${i <= step ? "var(--ink)" : "var(--track)"}; transition: background-color 280ms ease;`}></span>)}
+      {step >= 0 && <div role="progressbar" aria-label="Set-up steps" aria-valuemin={1} aria-valuemax={STEPS} aria-valuenow={Math.min(step + 1, STEPS)} style={`position: absolute; z-index: 3; top: calc(var(--top) + 21px); left: ${step > 0 ? 84 : 20}px; right: 20px; display: grid; grid-template-columns: repeat(${STEPS}, minmax(0, 1fr)); gap: 4px; transition: left 280ms cubic-bezier(0.23,1,0.32,1);`}>
+        {Array.from({ length: STEPS }, (_, i) => i).map((i) => <span key={i} style={`height: 6px; border-radius: 999px; background: ${i <= step ? "var(--ink)" : "var(--track)"}; transition: background-color 280ms ease;`}></span>)}
       </div>}
-      <BottomCta onClick={() => (step < 3 ? app.set({ ob: ui.ob + 1 }) : app.finishOnboarding())}>{step < 0 ? "Get started" : "Continue"}</BottomCta>
+      <BottomCta onClick={() => (step < STEPS ? app.set({ ob: ui.ob + 1 }) : app.finishOnboarding())}>{step < 0 ? "Get started" : step === 3 && !est ? "Skip for now" : "Continue"}</BottomCta>
+    </div>
+  );
+}
+
+const LEVEL_WORDS = ["Beginner", "Intermediate", "Advanced"] as const;
+
+/** The level the answers give, on a three-part meter, and what it changes on day one (read from the engine). */
+function LevelResult({ app, score }: { app: App; score: number | null }) {
+  const x = Math.max(0, Math.min(2, score ?? 1)) / 2;
+  const name = LEVEL_WORDS[score === null ? 1 : score < 0.5 ? 0 : score < 1.5 ? 1 : 2];
+  const rows = startingPoint(app.s, app.now);
+  return (
+    <div key="5" ref={fade} style="display: flex; flex-direction: column;">
+      <H1>Your starting <Faint>level</Faint></H1>
+      <section aria-label={`Starting level: ${name}`} style="position: relative; overflow: hidden; margin-top: 24px; border-radius: 32px; background: var(--hero); color: var(--hero-ink); padding: 24px; box-shadow: var(--hero-card-shadow);">
+        <span aria-hidden="true" style="position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22); pointer-events: none;"></span>
+        <h2 ref={fUp} style="position: relative; margin: 0 0 0 -2px; font-size: 48px; line-height: 0.95; font-weight: 800; letter-spacing: -0.04em;">{name}</h2>
+        <p style="position: relative; margin: 12px 0 0; font-size: 15px; line-height: 1.4; font-weight: 500; color: rgba(255, 255, 255, 0.92); text-wrap: pretty;">
+          {score === null ? "A middle start. Your first sets will show where you really are." : "From your push-ups and squats. It moves with every set you log."}
+        </p>
+        <div role="meter" aria-label="Level" aria-valuemin={0} aria-valuemax={2} aria-valuenow={+(x * 2).toFixed(2)} style="position: relative; margin-top: 22px; height: 30px;">
+          <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 11px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px;">
+            {LEVEL_WORDS.map((w) => <span key={w} style={`height: 8px; border-radius: 999px; background: ${w === name ? "#FFFFFF" : "rgba(255, 255, 255, 0.3)"};`}></span>)}
+          </div>
+          <span aria-hidden="true" ref={fFig} style={`position: absolute; top: 3px; left: calc(${x.toFixed(3)} * (100% - 24px)); width: 24px; height: 24px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; border: 5px solid var(--hero); box-shadow: 0 0 0 2px #FFFFFF;`}></span>
+        </div>
+        <div aria-hidden="true" style="position: relative; margin-top: 6px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; font-size: 12px; font-weight: 700;">
+          {LEVEL_WORDS.map((w, i) => <span key={w} style={`text-align: ${["left", "center", "right"][i]}; color: ${w === name ? "#FFFFFF" : "rgba(255, 255, 255, 0.7)"};`}>{w}</span>)}
+        </div>
+      </section>
+      <Section title="Where you start" top={28}>
+        <ul aria-label="Where you start" style="margin: 0; padding: 0 16px; list-style: none; background: var(--surface); border-radius: 24px;">
+          {rows.map((r, i) => (
+            <li key={r.label} style={`min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid ${i ? "var(--soft)" : "transparent"}; font-size: 15px;`}>
+              <span style="color: var(--muted);">{r.label}</span><span style="font-weight: 700; letter-spacing: -0.01em; text-align: right;">{r.value}</span>
+            </li>
+          ))}
+        </ul>
+      </Section>
     </div>
   );
 }

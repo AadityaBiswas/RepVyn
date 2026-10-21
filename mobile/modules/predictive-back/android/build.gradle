@@ -1,0 +1,20 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'app.repvyn.predictiveback'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.predictiveback"
+  defaultConfig {
+    versionCode 1
+    versionName "1.0.0"
+  }
+}
+
+dependencies {
+  // BackEventCompat and the progress callbacks (androidx.activity 1.8+); React Native already ships a newer one.
+  implementation "androidx.activity:activity:1.9.3"
+}

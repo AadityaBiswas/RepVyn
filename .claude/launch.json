@@ -35,6 +35,13 @@
         "--serve"
       ],
       "port": 5173
+    },
+    {
+      "name": "mobile-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "mobile", "run", "web", "--", "--port", "8082"],
+      "env": { "CI": "1" },
+      "port": 8082
     }
   ]
 }

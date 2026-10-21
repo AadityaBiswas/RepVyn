@@ -1,8 +1,8 @@
 // What the screens show, worked out from the engine state. Pure: no DOM, no storage, so it is unit-tested.
 import {
-  MUSCLES, REGIONS, REGION_NAMES, REGION_PLURAL, leastUsedMuscles, muscleSummary, planCalories, planSession, readiness, strengthTrend,
-  typicalSessionLoad, weeklyNeed,
-  type DayIntensity, type EngineState, type Equipment, type Muscle, type Plan, type PlannedExercise, type Program, type Region,
+  MUSCLES, REGIONS, REGION_NAMES, REGION_PLURAL, currentLevels, leastUsedMuscles, levelName, muscleSummary, planCalories, planSession, readiness,
+  scoreObservation, sessionCalories, strengthTrend, targetRir, typicalSessionLoad, weeklyNeed, weeklyTarget,
+  type DayIntensity, type EngineEvent, type Experience, type EngineState, type Equipment, type Muscle, type Plan, type PlannedExercise, type Program, type Region,
 } from "../../src/engine";
 
 export const H = 3_600_000;
@@ -192,7 +192,7 @@ export const WORK_INK = ["var(--on-w1)", "var(--on-w2)", "var(--on-w3)"] as cons
 /** More work is further from the ground: darker on the light theme, brighter on the dark one. */
 const REDS: Record<"light" | "dark", [number, string][]> = {
   light: [[0, "#F7CDD2"], [0.5, "#E8596B"], [0.75, "#D91E36"], [1, "#7A0E1E"]],
-  dark: [[0, "#5A1A26"], [0.5, "#B02236"], [0.75, "#E22A40"], [1, "#FF6B7D"]],
+  dark: [[0, "#F7CDD2"], [0.5, "#E8596B"], [0.75, "#E22A40"], [1, "#7A0E1E"]],
 };
 const rgb = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 export function red(v: number, theme: "light" | "dark" = "light"): string {
@@ -224,7 +224,7 @@ export function dayWork(s: EngineState, day: number, now: number): 0 | 1 | 2 | 3
 // ---------- Today ----------
 
 export type DayKind = "done" | "rest" | "today" | "todayDone" | "upcoming" | "before";
-export interface StripDay { letter: string; date: number; kind: DayKind; work: 0 | 1 | 2 | 3; label: string }
+export interface StripDay { letter: string; date: number; day: number; kind: DayKind; work: 0 | 1 | 2 | 3; label: string }
 
 /** `since`: when the user started; earlier days are plain, not rest days. */
 export function weekStrip(s: EngineState, now: number, since = 0): StripDay[] {
@@ -237,7 +237,7 @@ export function weekStrip(s: EngineState, now: number, since = 0): StripDay[] {
     const kind: DayKind = day === today ? (work ? "todayDone" : "today") : day > today ? "upcoming" : work ? "done" : day < dayStart(since) ? "before" : "rest";
     const name = d.toLocaleDateString("en-GB", { weekday: "long" });
     const label = `${name}, ${kind === "done" || kind === "todayDone" ? "workout done" : kind === "rest" ? "rest day" : kind === "today" ? "today" : kind === "before" ? "before you started" : "upcoming"}`;
-    return { letter: name[0]!, date: d.getDate(), kind, work, label };
+    return { letter: name[0]!, date: d.getDate(), day, kind, work, label };
   });
 }
 
@@ -286,7 +286,7 @@ export function strain(s: EngineState, at: number): Partial<Record<Region, numbe
 /** 2 high (75% and up), 1 medium (30 to 75%), 0 low (under 30%). */
 export const strainBand = (v: number): 0 | 1 | 2 => (v >= 0.75 ? 2 : v >= 0.3 ? 1 : 0);
 /** The three strain reds, the same as the figure's level reds (figure.ts) and the workout-intensity reds (--w1..--w3). */
-export const STRAIN = { light: ["#EE8794", "#D91E36", "#7A0E1E"], dark: ["#6B1524", "#E22A40", "#FF6B7D"] } as const;
+export const STRAIN = { light: ["#EE8794", "#D91E36", "#7A0E1E"], dark: ["#EE8794", "#E22A40", "#7A0E1E"] } as const;
 export const strainColour = (v: number, theme: "light" | "dark" = "light"): string => STRAIN[theme][strainBand(v)];
 /** Strain as values for a "level" figure, which paints 1, 0.5 and below in the same three reds. */
 export const strainFigure = (st: Partial<Record<Region, number>>): Partial<Record<Region, number>> =>
@@ -468,3 +468,84 @@ export function programMeters(p: Program): Meter[] {
 /** Figure shade per region for a program: 0.6 is standard, darker where it trains more. */
 export const programValues = (p: Program): Partial<Record<Region, number>> =>
   Object.fromEntries(REGIONS.map((m) => [m, Math.max(0.15, Math.min(0.95, 0.6 + ((p.emphasis[m] ?? 1) - 1) * 1.2))]));
+
+// ---------- the one program ----------
+
+/** The only program for now: Balanced, shown as the 12-week program. */
+export const PROGRAM_ID = "balanced";
+export const PROGRAM_NAME = "12-week program";
+
+// ---------- starting level (onboarding) ----------
+
+/** The two questions, as range tiles; each answer is a rep count inside its range, scored on the catalog norms. */
+export const LEVEL_ASKS = {
+  push: { exercise: "push_up_standard", label: "Push-ups in a row", note: "Full push-ups, chest to the floor.", answers: [["None yet", 1], ["1–9", 6], ["10–24", 16], ["25+", 32]] },
+  squat: { exercise: "squat_bodyweight", label: "Squats in a row", note: "Body weight, thighs to parallel.", answers: [["Under 15", 10], ["15–29", 22], ["30–49", 38], ["50+", 55]] },
+} as const satisfies Record<string, { exercise: string; label: string; note: string; answers: readonly (readonly [string, number])[] }>;
+export type LevelAsk = keyof typeof LEVEL_ASKS;
+
+/**
+ * A starting level score (0 beginner .. 2 advanced) from the answers: each answer is placed on that exercise's norms
+ * (scoreObservation, as calibration does with a real set), weighted by how much the norms tell apart. Null with no answer.
+ */
+export function levelFromAnswers(s: EngineState, answers: Partial<Record<LevelAsk, number>>): { score: number; experience: Experience } | null {
+  const obs = (Object.keys(LEVEL_ASKS) as LevelAsk[]).flatMap((k) => {
+    const i = answers[k];
+    const norm = s.catalog.byId[LEVEL_ASKS[k].exercise]?.defaultM;
+    if (i === undefined || !norm) return [];
+    return [scoreObservation(norm, LEVEL_ASKS[k].answers[i]![1])];
+  });
+  const w = obs.reduce((a, o) => a + o.weight, 0);
+  if (!w) return null;
+  const score = obs.reduce((a, o) => a + o.score * o.weight, 0) / w;
+  return { score, experience: levelName(score) };
+}
+
+export interface LevelRow { label: string; value: string }
+/** What the level changes on day one, read from the engine: the first push-up and squat, effort, weekly sets. */
+export function startingPoint(s: EngineState, now: number): LevelRow[] {
+  const owned = new Set<string>(s.profile?.equipment ?? []);
+  const first = (ladder: string) => {
+    const cands = s.catalog.exercises.filter((e) => e.ladderId === ladder && e.equipment.every((t) => owned.has(t)));
+    return cands.length ? currentLevels(s, cands, now)[0]?.name ?? null : null;
+  };
+  const rir = targetRir(s, now);
+  const sets = Math.round(weeklyTarget(s, "chest"));
+  return [
+    { label: "First push-up", value: first("push_up") ?? "Push-up" },
+    { label: "First squat", value: first("squat") ?? "Squat" },
+    { label: "Each set ends", value: rir === 0 ? "At failure" : `${rir} rep${rir === 1 ? "" : "s"} short of failure` },
+    { label: "Sets per muscle", value: `${sets} a week` },
+  ];
+}
+
+// ---------- a finished workout ----------
+
+export interface DoneExercise { id: string; name: string; region: Region; sets: string[]; total: string }
+export interface DoneDay { exercises: DoneExercise[]; regions: Region[]; minutes: number; sets: number; reps: number; kcal: number | null }
+
+/** Everything logged on one day, exercise by exercise in the order done: each set's reps (and weight), for the workout view. */
+export function doneDay(s: EngineState, events: readonly EngineEvent[], day: number, units: "metric" | "imperial" = "metric"): DoneDay | null {
+  const sessions = sessionsOn(s, day);
+  if (!sessions.length) return null;
+  const keys = new Set(sessions.map((x) => x.key));
+  const logged = events.filter((e) => e.type === "set_logged" && keys.has((e.payload as { sessionId: string }).sessionId) && !(e.payload as { isWarmup: boolean }).isWarmup)
+    .map((e) => e.payload as { exerciseId: string; reps?: number; holdSeconds?: number; weightKg?: number });
+  const by = new Map<string, typeof logged>();
+  for (const p of logged) by.set(p.exerciseId, [...(by.get(p.exerciseId) ?? []), p]);
+  const kg = (w: number) => (units === "metric" ? `${+w.toFixed(1)} kg` : `${Math.round(w * 2.2046)} lb`);
+  const exercises = [...by].flatMap(([id, ps]) => {
+    const ex = s.catalog.byId[id];
+    if (!ex) return [];
+    const region = primary(s, id)[0] ?? "chest";
+    const sets = ps.map((p) => (p.holdSeconds !== undefined ? `${p.holdSeconds}s` : p.weightKg ? `${kg(p.weightKg)} × ${p.reps}` : String(p.reps ?? 0)));
+    const reps = ps.reduce((a, p) => a + (p.reps ?? 0), 0);
+    const secs = ps.reduce((a, p) => a + (p.holdSeconds ?? 0), 0);
+    return [{ id, name: ex.name, region, sets, total: secs && !reps ? `${secs}s held` : `${reps} rep${reps === 1 ? "" : "s"}` }];
+  });
+  const regions = REGIONS.filter((m) => exercises.some((x) => s.catalog.byId[x.id]?.contributions[m] === 1));
+  const minutes = Math.max(1, Math.round(sessions.reduce((a, x) => a + ((x.end ?? x.lastTs) - x.start), 0) / 60_000));
+  const kcals = sessions.map((x) => sessionCalories(s, x)?.totalKcal ?? null);
+  const kcal = kcals.every((k) => k === null) ? null : Math.round(kcals.reduce<number>((a, k) => a + (k ?? 0), 0));
+  return { exercises, regions, minutes, sets: logged.length, reps: logged.reduce((a, p) => a + (p.reps ?? 0), 0), kcal };
+}

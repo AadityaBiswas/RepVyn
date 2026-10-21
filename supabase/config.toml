@@ -19,6 +19,15 @@ enable_confirmations = false
 otp_length = 6
 otp_expiry = 600
 
+# The app signs in with the 6-digit code, never a link, so both emails show the code ({{ .Token }}).
+[auth.email.template.magic_link]
+subject = "Your RepVyn code"
+content_path = "./supabase/templates/code.html"
+
+[auth.email.template.confirmation]
+subject = "Your RepVyn code"
+content_path = "./supabase/templates/code.html"
+
 [auth.rate_limit]
 email_sent = 10
 

@@ -1,8 +1,8 @@
 // The app's screen logic (app/src): what Today, Progress and the workout show, driven through the real engine replay.
 import { describe, expect, it } from "vitest";
 import { activation, activity, addDays, nudgeWeight, startingPoints, strengthRows, dayStart, exerciseDetail, isLegsDay, makePlan, needsCheckin, planRows, planValues, planWhy, programWeek, recovering, red, regionWords, streakWeeks, trainedToday, weekStart, weekStrip } from "../app/src/model";
-import { DEFAULT_SETTINGS, append, engineState, fresh, setFeedback, unitsFor, withProfile, type Saved } from "../app/src/store";
-import { planWeeks, readyAt, strain, strainBand, strainRows } from "../app/src/model";
+import { DEFAULT_SETTINGS, append, engineState, fresh, load, setFeedback, unitsFor, withProfile, type Saved } from "../app/src/store";
+import { doneDay, levelFromAnswers, planWeeks, readyAt, startingPoint, strain, strainBand, strainRows } from "../app/src/model";
 import { growth, learnedLine, learnedRows, mostWorked } from "../app/src/finish";
 import { REST_SECONDS, answer, asksLeft, fromPlan, isAllOut, nextSet, setDone, start, tick, toEvents, type Run, type RunExercise } from "../app/src/workout";
 
@@ -369,5 +369,40 @@ describe("recovery strain and weeks on plan", () => {
     expect(p.run).toBe(4);
     const short = planWeeks(engineState(s), MON + 5 * 24 * H, 4, s.createdAt, 8);
     expect(short.run).toBe(0);
+  });
+});
+
+describe("final retouches", () => {
+  it("places the level answers on the catalog norms", () => {
+    const s = engineState(user());
+    expect(levelFromAnswers(s, {})).toBeNull();
+    expect(levelFromAnswers(s, { push: 0, squat: 0 })!.experience).toBe("beginner");
+    expect(levelFromAnswers(s, { push: 2, squat: 2 })!.experience).toBe("intermediate");
+    expect(levelFromAnswers(s, { push: 3, squat: 3 })!.experience).toBe("advanced");
+    const one = levelFromAnswers(s, { push: 1 })!.score;
+    expect(levelFromAnswers(s, { push: 3 })!.score).toBeGreaterThan(one);
+  });
+  it("starts an advanced user further up the push-up ladder than a beginner", () => {
+    const at = (level: "beginner" | "advanced") => {
+      const u = user();
+      return startingPoint(engineState(withProfile({ ...u, settings: { ...u.settings, equipment: [], level } }, MON)), MON);
+    };
+    const b = at("beginner"), a = at("advanced");
+    expect(b.map((r) => r.label)).toEqual(["First push-up", "First squat", "Each set ends", "Sets per muscle"]);
+    expect(a[0]!.value).not.toBe(b[0]!.value);
+  });
+  it("shows every set of a finished day, in the order done", () => {
+    const { saved, run } = playWorkout(user(), MON);
+    const d = doneDay(engineState(saved), saved.events, dayStart(MON))!;
+    const ids = [...new Set(run.done.map((x) => x.exerciseId))];
+    expect(d.exercises.map((x) => x.id)).toEqual(ids);
+    expect(d.sets).toBe(d.exercises.reduce((a, x) => a + x.sets.length, 0));
+    expect(d.minutes).toBeGreaterThan(0);
+    expect(doneDay(engineState(saved), saved.events, addDays(dayStart(MON), 1))).toBeNull();
+  });
+  it("keeps everyone on the 12-week program", () => {
+    const v = JSON.stringify({ ...user(), settings: { ...DEFAULT_SETTINGS, programId: "upper_body" } });
+    (globalThis as { localStorage?: unknown }).localStorage = { getItem: () => v, setItem: () => {} };
+    try { expect(load(MON).settings.programId).toBe("balanced"); } finally { delete (globalThis as { localStorage?: unknown }).localStorage; }
   });
 });

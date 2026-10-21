@@ -6,7 +6,7 @@ import { catalog } from "../env";
 import {
   WORK, WORK_INK, activity, isLegsDay, planValues, needsCheckin, planRegions, planRows, planTitle, planWhy, programWeek, sparkPath,
   strengthRows, trainedToday, weekMuscles, weekStrip, weightLabel,
-  nudgeWeight, startingPoints, H, STRAIN, addDays, dayStart, planWeeks, readyAt, strain, strainColour, strainFigure, strainRows, type StrainRow,
+  nudgeWeight, startingPoints, H, PROGRAM_NAME, STRAIN, addDays, dayStart, planWeeks, readyAt, strain, strainColour, strainFigure, strainRows, type StrainRow,
 } from "../model";
 import { ownedFromChoice } from "./dumbbells";
 import { AccountSection } from "./account";
@@ -40,14 +40,12 @@ export function EquipOptions({ value, set }: { value: Equipment[]; set: (eq: Equ
   );
 }
 
-const SHORT: Record<string, string> = { balanced: "Balanced", upper_body: "Upper body", legs_glutes: "Legs" };
 const FEEL = [["fresh", "Fresh"], ["normal", "Normal"], ["beat_up", "Worn out"]] as const;
 
 // ---------- Today ----------
 
 export function Today({ app }: { app: App }) {
   const { s, now, saved, ui } = app;
-  const program = catalog.programs.find((p) => p.id === saved.settings.programId) ?? catalog.programs[0]!;
   const week = programWeek(saved.programStart, now);
   const doneWeeks = week - 1;
   const strip = weekStrip(s, now, saved.createdAt);
@@ -57,12 +55,10 @@ export function Today({ app }: { app: App }) {
   return (
     <Scroll cls="pane">
       <header style="display: flex; flex-direction: column;">
-        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
-          <H1>Week {week} <Faint>of 12</Faint></H1>
-          <button type="button" class="press" onClick={app.openPrograms} aria-label={`${program.name}, change program`} style="margin-right: -5px; min-height: 32px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; white-space: nowrap; color: var(--muted);">
-            {SHORT[program.id] ?? program.name}<Chevron />
-          </button>
-        </div>
+        <button type="button" class="press" onClick={app.openPrograms} aria-label={`${PROGRAM_NAME}, view program`} style="align-self: flex-start; margin: 0 0 6px -1px; min-height: 32px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; gap: 2px; font-size: 15px; font-weight: 600; white-space: nowrap; color: var(--muted);">
+          {PROGRAM_NAME}<Chevron />
+        </button>
+        <H1>Week {week} <Faint>of 12</Faint></H1>
         <div role="progressbar" aria-label="Weeks completed" aria-valuemin={0} aria-valuemax={12} aria-valuenow={doneWeeks} style="margin-top: 14px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px;">
           {Array.from({ length: 12 }, (_, i) => <span key={i} style={`height: 6px; border-radius: 999px; background: ${i < doneWeeks ? "var(--ink)" : i === doneWeeks ? "var(--accent)" : "var(--track)"};`}></span>)}
         </div>
@@ -80,9 +76,16 @@ export function Today({ app }: { app: App }) {
             : "background: var(--surface); color: var(--ink);";
           const done = d.kind === "done" || d.kind === "todayDone";
           return (
-            <div key={d.date} ref={d.kind === "todayDone" && ui.justFinished ? capfill : undefined} data-delay="560" role="listitem" aria-label={d.label} style={base + look}>
-              <span aria-hidden="true" style={`font-size: 11px; line-height: 1; font-weight: 600; ${d.kind === "upcoming" || d.kind === "before" ? "color: var(--muted);" : ""}`}>{d.letter}</span>
-              <span aria-hidden="true" style="height: 18px; display: flex; align-items: center; font-size: 17px; line-height: 1; font-weight: 700; letter-spacing: -0.02em;">{done ? <Check /> : d.date}</span>
+            <div key={d.date} ref={d.kind === "todayDone" && ui.justFinished ? capfill : undefined} data-delay="560" role="listitem" aria-label={d.label} style={base + look + (done ? " padding: 0;" : "")}>
+              {done ? (
+                <button type="button" class="press" onClick={() => app.openDone(d.day)} aria-label={`${d.label}. See the workout`} style="width: 100%; height: 100%; padding: 0; border: 0; border-radius: inherit; background: transparent; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                  <span aria-hidden="true" style="font-size: 11px; line-height: 1; font-weight: 600;">{d.letter}</span>
+                  <span aria-hidden="true" style="height: 18px; display: flex; align-items: center;"><Check /></span>
+                </button>
+              ) : (<>
+                <span aria-hidden="true" style={`font-size: 11px; line-height: 1; font-weight: 600; ${d.kind === "upcoming" || d.kind === "before" ? "color: var(--muted);" : ""}`}>{d.letter}</span>
+                <span aria-hidden="true" style="height: 18px; display: flex; align-items: center; font-size: 17px; line-height: 1; font-weight: 700; letter-spacing: -0.02em;">{d.date}</span>
+              </>)}
             </div>
           );
         })}
@@ -98,6 +101,12 @@ export function Today({ app }: { app: App }) {
       )}
 
       {doneToday.length ? <DoneCard app={app} next={plan} /> : <HeroCard app={app} plan={plan} />}
+      {doneToday.length > 0 && plan.kind === "workout" && (
+        <button type="button" class="press" onClick={app.openSetup} style="margin-top: 12px; width: 100%; min-height: 64px; padding: 0 20px; border: 0; border-radius: 24px; background: var(--surface); color: var(--ink); display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; text-align: left;">
+          <span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 13px; font-weight: 600; color: var(--muted);">Train again</span><span style="font-size: 17px; font-weight: 700; letter-spacing: -0.015em;">{planTitle(plan)}</span></span>
+          <Chevron size={18} />
+        </button>
+      )}
 
       {!doneToday.length && plan.kind === "workout" && (
         <Section title="Today's plan">
@@ -118,7 +127,7 @@ export function Today({ app }: { app: App }) {
 const Arrow = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>;
 
 /** The red card: a display title and the figure, big, cut by the card. A legs day shows the legs alone; any other day the whole figure runs off the right and bottom edges. */
-function HeroShell({ app, title, why, regions, meta, onOpen, label }: { app: App; title: string; why: string; regions: Partial<Record<MuscleId, number>>; meta: [ComponentChildren, string][] | null; onOpen: (() => void) | null; label: string }) {
+function HeroShell({ app, title, why, regions, meta, onOpen, label, openLabel = "View workout" }: { app: App; title: string; why: string; regions: Partial<Record<MuscleId, number>>; meta: [ComponentChildren, string][] | null; onOpen: (() => void) | null; label: string; openLabel?: string }) {
   useFigures();
   const ms = REGIONS.filter((m) => regions[m]);
   const legs = isLegsDay(ms);
@@ -142,7 +151,7 @@ function HeroShell({ app, title, why, regions, meta, onOpen, label }: { app: App
       )}
       {onOpen && (
         <div style="position: relative; margin-top: auto; padding-top: 20px;">
-          <button type="button" class="press" onClick={(e) => { e.stopPropagation(); onOpen(); }} aria-label="View workout" style="width: 56px; height: 56px; flex-shrink: 0; padding: 0; border: 0; border-radius: 999px; background: #FFFFFF; color: var(--hero); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 12px 18px -10px rgba(0, 0, 0, 0.5);"><Arrow /></button>
+          <button type="button" class="press" onClick={(e) => { e.stopPropagation(); onOpen(); }} aria-label={openLabel} style="width: 56px; height: 56px; flex-shrink: 0; padding: 0; border: 0; border-radius: 999px; background: #FFFFFF; color: var(--hero); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 12px 18px -10px rgba(0, 0, 0, 0.5);"><Arrow /></button>
         </div>
       )}
     </section>
@@ -168,8 +177,8 @@ function DoneCard({ app, next }: { app: App; next: Plan }) {
   const regions = Object.fromEntries(REGIONS.filter((m) => [...ids].some((id) => s.catalog.byId[id]?.contributions[m] === 1)).map((m) => [m, 1]));
   const sets = sessions.reduce((a, x) => a + x.log.filter((l) => !l.isWarmup).length, 0);
   const mins = Math.max(1, Math.round(sessions.reduce((a, x) => a + ((x.end ?? x.lastTs) - x.start), 0) / 60_000));
-  const why = next.kind === "workout" ? `Next up: ${planTitle(next).toLowerCase()}. Train again if you like.` : "Rest now. Your next workout will be ready tomorrow.";
-  return <HeroShell app={app} label="Today's workout, done" title="Done for today" why={why} regions={regions} meta={[[<Clock size={17} />, `${mins} min`], [<Layers size={17} />, `${sets} set${sets === 1 ? "" : "s"}`]]} onOpen={next.kind === "workout" ? app.openSetup : null} />;
+  const why = next.kind === "workout" ? `Next up: ${planTitle(next).toLowerCase()}, if you want more.` : "Rest now. Your next workout will be ready tomorrow.";
+  return <HeroShell app={app} label="Today's workout, done" title="Done for today" why={why} regions={regions} meta={[[<Clock size={17} />, `${mins} min`], [<Layers size={17} />, `${sets} set${sets === 1 ? "" : "s"}`]]} onOpen={() => app.openDone(dayStart(now))} openLabel="See today's workout" />;
 }
 
 // ---------- Body ----------
@@ -274,7 +283,7 @@ export function Body({ app }: { app: App }) {
               <Muscle region={r.region} theme={theme} color={on ? strainColour(r.strain, theme) : theme === "dark" ? "#636366" : "#AEAEB2"} size={48} radius={14} />
               <span style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
                 <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;">
-                  <span style="min-width: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.015em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{r.name}</span>
+                  <span style="min-width: 0; font-size: 17px; font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance;">{r.name}</span>
                   <span style="flex-shrink: 0; font-size: 15px; color: var(--muted);">{on ? readyAt(r.hours, now) : "Ready"}</span>
                 </span>
                 {on && (
@@ -424,7 +433,6 @@ export const bodyWeight = (kg: number, units: "metric" | "imperial") => (units =
 export function Profile({ app }: { app: App }) {
   const { saved, ui, theme } = app;
   const st = saved.settings;
-  const program = catalog.programs.find((p) => p.id === st.programId) ?? catalog.programs[0]!;
   const row = (key: string) => ({ open: ui.edit === key, toggle: () => app.set({ edit: ui.edit === key ? null : key }) });
   const owned = ownedFromChoice(st.dumbbells);
   const dbLabel = owned.length ? (owned.length === 1 ? weightLabel(owned[0]!, "metric") : `${owned[0]}–${owned.at(-1)} kg`) : "None";
@@ -438,9 +446,9 @@ export function Profile({ app }: { app: App }) {
       </header>
 
       <section aria-label="Your program" style="margin-top: 24px; border-radius: 32px; background: var(--surface); padding: 24px 24px 20px; display: flex; flex-direction: column; box-shadow: var(--card-shadow);">
-        <h2 style="margin: 0; font-size: 24px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;">{program.id === "balanced" ? "Balanced program" : program.name}</h2>
-        <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted); text-wrap: pretty;">Week {programWeek(saved.programStart, app.now)} of 12. {program.description ?? ""}</p>
-        <button type="button" class="press" onClick={app.openPrograms} style="margin-top: 20px; height: 52px; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer;">Change program</button>
+        <h2 style="margin: 0; font-size: 24px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;">{PROGRAM_NAME}</h2>
+        <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted); text-wrap: pretty;">Week {programWeek(saved.programStart, app.now)} of 12. Every muscle, trained evenly.</p>
+        <button type="button" class="press" onClick={app.openPrograms} style="margin-top: 20px; height: 52px; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer;">View program</button>
       </section>
 
       <Section title="Training">

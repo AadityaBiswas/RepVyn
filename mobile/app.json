@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "RepVyn",
+    "slug": "repvyn",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.repvyn"
+    },
+    "android": {
+      "package": "app.repvyn",
+      "adaptiveIcon": {
+        "backgroundColor": "#DE223D",
+        "foregroundImage": "./assets/android-icon-foreground.png"
+      },
+      "predictiveBackGestureEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-notifications",
+      "./plugins/cmake-version"
+    ]
+  }
+}

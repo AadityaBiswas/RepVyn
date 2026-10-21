@@ -69,10 +69,18 @@ const deviceLocale = () => (typeof navigator === "undefined" ? undefined : navig
 export function fresh(now: number, locale = deviceLocale()): Saved {
   return { v: 1, userId: uuid(), createdAt: now, onboarded: false, programStart: null, settings: { ...DEFAULT_SETTINGS, units: unitsFor(locale) }, events: [], feedback: {}, sync: EMPTY_SYNC };
 }
+/** The saved JSON (from localStorage here, AsyncStorage in the phone app) back into a Saved, or a fresh one. */
+export function parse(raw: string | null, now: number): Saved {
+  try {
+    const s = JSON.parse(raw ?? "null") as Saved | null;
+    // Balanced (the 12-week program) is the only program for now, so a saved pick of another one is moved onto it.
+    if (s?.v === 1 && Array.isArray(s.events)) return { ...fresh(now), ...s, settings: { ...DEFAULT_SETTINGS, ...s.settings, programId: DEFAULT_SETTINGS.programId }, sync: { ...EMPTY_SYNC, ...s.sync } };
+  } catch {}
+  return fresh(now);
+}
 export function load(now: number): Saved {
   try {
-    const s = JSON.parse(localStorage.getItem(KEY) ?? "null") as Saved | null;
-    if (s?.v === 1 && Array.isArray(s.events)) return { ...fresh(now), ...s, settings: { ...DEFAULT_SETTINGS, ...s.settings }, sync: { ...EMPTY_SYNC, ...s.sync } };
+    return parse(localStorage.getItem(KEY), now);
   } catch {}
   return fresh(now);
 }
@@ -81,6 +89,7 @@ export function save(s: Saved): void {
     localStorage.setItem(KEY, JSON.stringify(s));
   } catch {}
 }
+export const STORE_KEY = KEY;
 
 /** Log out: everything kept on this device goes, and the next load starts from onboarding. */
 export function erase(): void {

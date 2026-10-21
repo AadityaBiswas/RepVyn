@@ -1,7 +1,9 @@
 // Cloud sync rules (app/src/cloud/syncCore.ts, ADR-0003): two devices, deletes, retries, settings conflicts.
 import { describe, expect, it } from "vitest";
 import { adopt, afterPush, applyPull, BATCH, docOf, outbox, reminderTime, stampDoc, type PullPage, type RemoteEvent } from "../app/src/cloud/syncCore";
-import { append, fresh, setFeedback, type Saved } from "../app/src/store";
+import { append, DEFAULT_SETTINGS, engineState, fresh, setFeedback, withProfile, type Saved } from "../app/src/store";
+import { makePlan } from "../app/src/model";
+import { fromPlan, setDone, start, toEvents, type Run } from "../app/src/workout";
 
 const U = "00000000-0000-4000-8000-0000000000aa";
 const T0 = Date.UTC(2026, 9, 1, 8);
@@ -221,6 +223,34 @@ describe("sync", () => {
     srv.sync(device(2, T0));
     const b = srv.sync(device(0, T0 + 30 * 86_400_000));
     expect(b.createdAt).toBe(T0);
+  });
+
+  it("gives a second phone on the same account the same learned engine and the same plan", () => {
+    const srv = new Server();
+    const day = 86_400_000;
+    const choice = { minutes: 30, intensity: "normal" as const, equipment: ["dumbbell" as const] };
+    // Phone A: set up with dumbbells, three workouts and a like, synced.
+    let a = withProfile(adopt({ ...fresh(T0, "en-IN"), onboarded: true, programStart: T0, settings: { ...DEFAULT_SETTINGS, goal: "muscle", days: 3, equipment: ["dumbbell"] } }, { id: U, email: null }, "t"), T0);
+    for (let d = 0; d < 3; d++) {
+      const t0 = T0 + d * 2 * day;
+      let r: Run = start(fromPlan(engineState(a), makePlan(engineState(a), t0, choice)), t0);
+      for (let i = 0, t = t0; i < 12 && r.phase !== "done"; i++) { t += 60_000; r = setDone(r, t); if (r.phase === "rest") r = { ...r, phase: "work" }; }
+      a = append(a, toEvents(r, `w${d}`, t0 + 1_800_000));
+    }
+    const liked = engineState(a).sessions[0]!.log[0]!.exerciseId;
+    a = srv.sync(srv.sync(setFeedback(a, liked, true, T0 + 7 * day)));
+    // Phone B: a hurried set-up with other settings, then sign-in; the app re-records the profile once the account's settings arrive.
+    let b = withProfile(adopt({ ...fresh(T0 + 8 * day, "en-US"), onboarded: true, programStart: T0 + 8 * day, settings: { ...DEFAULT_SETTINGS, goal: "general_fitness", days: 5, equipment: [] } }, { id: U, email: null }, "t"), T0 + 8 * day);
+    b = srv.sync(srv.sync(b));
+    b = withProfile(b, T0 + 8 * day);
+    const at = T0 + 9 * day;
+    const [ea, eb] = [engineState(a), engineState(b)];
+    expect(b.settings).toEqual(a.settings);
+    expect(b.feedback[liked]?.liked).toBe(true);
+    expect(eb.profile).toMatchObject({ goal: "muscle", equipment: ["dumbbell"], daysPerWeek: 3 });
+    expect(eb.sessions.length).toBe(ea.sessions.length);
+    const rows = (s: typeof ea) => makePlan(s, at, choice).exercises.map((x) => JSON.stringify(x));
+    expect(rows(eb)).toEqual(rows(ea));
   });
 
   it("reads reminder labels as 24-hour times", () => {

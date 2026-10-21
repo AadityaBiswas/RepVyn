@@ -90,7 +90,7 @@ const write = {
       mkdirSync("app/dist", { recursive: true });
       cpSync("app/public", "app/dist", { recursive: true });
       writeFileSync("app/dist/index.html", html);
-      writeFileSync("app/dist/sw.js", readFileSync("app/public/sw.js", "utf8").replace("__BUILD__", build));
+      writeFileSync("app/dist/sw.js", readFileSync("app/public/sw.js", "utf8").replaceAll("__BUILD__", build));
       policy = csp(sha(js));
       writeFileSync("app/dist/_headers", [
         "/*",

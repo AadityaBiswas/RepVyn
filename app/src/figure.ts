@@ -10,7 +10,7 @@ export type Theme = "light" | "dark";
 /** body: ready grey and a red ramp. level: how hard an exercise works each muscle, in three reds. solid: listed muscles in one red. hero: listed muscles white on the red card. */
 export type Kind = "body" | "level" | "solid" | "hero";
 /** Lightly, moderately and highly worked. Further from the ground is more, as on the week strip. */
-const LEVEL = { light: ["#EE8794", "#D91E36", "#7A0E1E"], dark: ["#6B1524", "#E22A40", "#FF6B7D"] };
+const LEVEL = { light: ["#EE8794", "#D91E36", "#7A0E1E"], dark: ["#EE8794", "#E22A40", "#7A0E1E"] };
 const level = (v: number, theme: Theme): string => LEVEL[theme][v >= 1 ? 2 : v >= 0.5 ? 1 : 0]!;
 /** all: the whole figure. legs: torso and legs with no arms, starting at the first whole muscle, for a legs day. */
 export type Part = "all" | "legs";
